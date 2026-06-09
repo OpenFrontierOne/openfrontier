@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 96" role="img" aria-labelledby="title desc">
+  <title id="title">Open Frontier One</title>
+  <desc id="desc">OFO monogram and Open Frontier One wordmark for light backgrounds.</desc>
+  <defs>
+    <linearGradient id="ofo-gradient" x1="12" y1="14" x2="84" y2="82" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f97316"/>
+      <stop offset=".34" stop-color="#8b5cf6"/>
+      <stop offset=".68" stop-color="#0284c7"/>
+      <stop offset="1" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="88" height="88" rx="21" fill="#0b0b10"/>
+  <rect x="5" y="5" width="86" height="86" rx="20" fill="none" stroke="#292630" stroke-width="2"/>
+  <path d="M39 25a23 23 0 1 0 0 46" fill="none" stroke="url(#ofo-gradient)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M57 25a23 23 0 1 1 0 46" fill="none" stroke="url(#ofo-gradient)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M48 27v42M48 30h14M48 47h11" fill="none" stroke="#f6f4f8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="116" y="45" fill="#17141d" font-family="Manrope, Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="-.5">Open Frontier</text>
+  <text x="116" y="72" fill="#7c3aed" font-family="Manrope, Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="5">ONE</text>
+  <text x="430" y="62" fill="#6e6a76" font-family="Manrope, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="2">OFO</text>
+</svg>

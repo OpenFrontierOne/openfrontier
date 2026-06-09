@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open Frontier FAQ - Users, Contributors and Stakeholders</title>
+  <meta name="description" content="Detailed answers about Open Frontier products, pricing, privacy, AI, licensing, contribution, education, security, and project maturity.">
+  <link rel="canonical" href="https://openfrontier.pages.dev/faq">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="site-nav" aria-label="Main navigation"><div class="nav-inner"><a class="brand" href="/"><img class="brand-mark" src="/logo-mark.svg" alt=""><span>Open Frontier <span class="brand-one">One</span></span></a><div class="nav-links"><a href="/about">About</a><a href="/guide">Guide</a><a href="/faq">FAQ</a><a href="/stakeholders">Stakeholders</a><a href="https://openfrontier-docs.pages.dev">Documentation</a><a class="nav-cta" href="/contribute">Contribute</a></div></div></nav>
+
+<main id="main">
+  <header class="page-hero container narrow">
+    <span class="eyebrow">Frequently asked questions</span>
+    <h1>Direct answers, including the <span class="gradient-text">difficult ones.</span></h1>
+    <p class="lede">This page covers use, cost, data, AI, education, licensing, contribution, security, maturity, governance, and sustainability.</p>
+  </header>
+
+  <div class="container narrow prose">
+    <nav class="toc" aria-label="FAQ sections">
+      <a href="#users">Using the products</a>
+      <a href="#privacy">Privacy and AI</a>
+      <a href="#education">Education</a>
+      <a href="#licensing">Licensing</a>
+      <a href="#contributors">Contributing</a>
+      <a href="#business">Business model</a>
+      <a href="#security">Security</a>
+      <a href="#project">Project and governance</a>
+      <a href="#support">Support</a>
+    </nav>
+
+    <section class="faq-group" id="users">
+      <h2>Using the products</h2>
+      <details class="faq-item" open><summary>Is everything free?</summary><div class="faq-answer"><p>The products labeled <strong>Free</strong> are intended to remain usable at no charge. Pro products fund capabilities that require persistent infrastructure. The public catalog distinguishes free, beta, and Pro products so a preview is not mistaken for a complete free service.</p></div></details>
+      <details class="faq-item"><summary>Do I need an account?</summary><div class="faq-answer"><p>Most static tools and simulations do not require one. Accounts are used when identity is necessary, such as publishing, synchronization, ownership, collaboration, marketplace activity, or billing. Requirements vary by store.</p></div></details>
+      <details class="faq-item"><summary>Do I need to install anything?</summary><div class="faq-answer"><p>No for ordinary use. Products run in a modern browser. Some apps can optionally be installed as PWAs. Contributors working on platform repositories may need Node.js, pnpm or Bun, Git, and Cloudflare tooling.</p></div></details>
+      <details class="faq-item"><summary>Will products work offline?</summary><div class="faq-answer"><p>Some self-contained tools and PWAs do after their assets are cached; others need a network connection for fonts, models, APIs, multiplayer, publishing, or server features. Offline support is a per-product capability, not a universal guarantee.</p></div></details>
+      <details class="faq-item"><summary>Which browsers and devices are supported?</summary><div class="faq-answer"><p>Current Chromium, Firefox, and Safari are the general target. Advanced WebGPU, built-in AI, audio, file-system, or PWA features may work only in particular browsers. Complex simulations are usually easier to use on a desktop even when layouts support mobile.</p></div></details>
+      <details class="faq-item"><summary>Why are there many separate stores?</summary><div class="faq-answer"><p>Each audience has distinct search intent, product needs, contribution expertise, and deployment requirements. Separation also limits operational coupling. Shared conventions are adopted where they help, but one store does not need to release in lockstep with every other store.</p></div></details>
+      <details class="faq-item"><summary>Are outputs guaranteed to be correct?</summary><div class="faq-answer"><p>No. Tools and simulations can contain defects, simplify a domain, or become outdated. Verify important results independently. Finance tools are not financial advice; educational science simulations are not laboratory or safety systems; AI output may be wrong.</p></div></details>
+      <details class="faq-item"><summary>How do I choose between similar stores or tools?</summary><div class="faq-answer"><p>Start from the result you need, then compare export format, account requirement, browser support, network use, maturity, and whether the work is high stakes. The <a href="/guide">field guide</a> provides a decision path.</p></div></details>
+      <details class="faq-item"><summary>Can I self-host a tool?</summary><div class="faq-answer"><p>Usually, when its repository is public and the license permits it. Self-hosting can still require build tooling, Cloudflare services, OAuth credentials, databases, or separately licensed assets. The repository documentation is authoritative.</p></div></details>
+      <details class="faq-item"><summary>Are there public APIs?</summary><div class="faq-answer"><p>Some platform stores expose SDK and backend APIs, but there is no single stable ecosystem-wide public API. Authentication, quotas, compatibility, and support differ by store. Do not build a critical integration from an undocumented endpoint.</p></div></details>
+    </section>
+
+    <section class="faq-group" id="privacy">
+      <h2>Privacy, data, and AI</h2>
+      <details class="faq-item" open><summary>Does Open Frontier collect data?</summary><div class="faq-answer"><p>The ecosystem is designed to minimize collection, but the old blanket claim of "zero data collected" is too broad. Static tools commonly keep work in memory or browser storage. Cloudflare may process standard request metadata, and storefronts may use cookieless Cloudflare Web Analytics. Account, publishing, multiplayer, and Pro services necessarily process the data required to provide those features. See the <a href="/privacy">privacy and data page</a>.</p></div></details>
+      <details class="faq-item"><summary>Does my work leave my device?</summary><div class="faq-answer"><p>For browser-only operations, generally not. It can leave your device when you deliberately use a network feature: an external AI provider, URL lookup, multiplayer room, account sync, publishing flow, file upload, email, or other backend service. Review the individual tool before entering sensitive information.</p></div></details>
+      <details class="faq-item"><summary>Which AI provider is used?</summary><div class="faq-answer"><p>There is no single provider. Depending on the product, AI may run through browser heuristics, ONNX or Transformers.js models, WebGPU/WASM, supported browser-built-in AI, a user-authorized API key, or Cloudflare Workers AI on a Pro service. Tools should disclose the path they use.</p></div></details>
+      <details class="faq-item"><summary>Where are user-provided API keys stored?</summary><div class="faq-answer"><p>This varies. Some static tools store a key in browser local storage. Platform key-vault features can encrypt stored keys and proxy authorized requests. Do not enter a high-value unrestricted key into a tool you have not reviewed; use provider-side scope and spending limits whenever possible.</p></div></details>
+      <details class="faq-item"><summary>Is user content used to train models?</summary><div class="faq-answer"><p>Open Frontier does not operate a model-training program based on user content. If you invoke a third-party AI provider, that provider's retention and training terms apply to the request. Consult its policy before sending confidential or regulated data.</p></div></details>
+      <details class="faq-item"><summary>Can I use sensitive or regulated data?</summary><div class="faq-answer"><p>Do not assume the public tools are approved for health, financial, legal, government, export-controlled, or other regulated data. There is no ecosystem-wide compliance claim for HIPAA, SOC 2, PCI DSS, GDPR processor obligations, or similar regimes.</p></div></details>
+      <details class="faq-item"><summary>How do I delete an account or server-side data?</summary><div class="faq-answer"><p>Use the controls provided by the specific product or contact its repository owner when no control exists. Retention is not yet standardized across every service. Browser-only data can generally be removed by clearing that site's storage.</p></div></details>
+    </section>
+
+    <section class="faq-group" id="education">
+      <h2>Education and research</h2>
+      <details class="faq-item" open><summary>Can a school or university use the simulations?</summary><div class="faq-answer"><p>Yes. Teachers can link directly to public simulations without provisioning student accounts. Review each simulation for curriculum fit and accuracy before assigning it, and provide alternatives where browser or accessibility requirements create a barrier.</p></div></details>
+      <details class="faq-item"><summary>Are lesson plans or formal curricula included?</summary><div class="faq-answer"><p>Some stores include institute, challenge, collection, or learning-path material, but there is not yet a universally mapped curriculum with standards alignment, assessment rubrics, and instructor guides. That is a strong contribution opportunity.</p></div></details>
+      <details class="faq-item"><summary>Are simulations scientifically validated?</summary><div class="faq-answer"><p>They are educational software, not certified research instruments. Some implement established equations or algorithms, but validation depth varies. Domain-expert review, references, test cases, and explanatory assumptions are welcome.</p></div></details>
+      <details class="faq-item"><summary>Can I embed a tool in a course site?</summary><div class="faq-answer"><p>Direct links are the most reliable option. Embedding depends on the target site's security headers and the product's own framing policy. For copying or adapting source, follow the repository license and preserve required notices.</p></div></details>
+      <details class="faq-item"><summary>What accessibility support exists?</summary><div class="faq-answer"><p>The design standard includes semantic controls, keyboard use, contrast, and responsive behavior, but coverage is uneven, especially in canvas, 3D, audio, and simulation-heavy experiences. Educators should test the exact workflow and provide an alternative when needed.</p></div></details>
+    </section>
+
+    <section class="faq-group" id="licensing">
+      <h2>Licensing and commercial use</h2>
+      <details class="faq-item" open><summary>Is Open Frontier open source?</summary><div class="faq-answer"><p>Free-store projects generally use MIT-licensed source and public GitHub repositories. Do not infer that every Pro repository, third-party asset, model, dataset, font, book, or user contribution has the same license. The license file in the specific repository is authoritative.</p></div></details>
+      <details class="faq-item"><summary>Can I use a tool for commercial work?</summary><div class="faq-answer"><p>Generally yes. Using a hosted tool does not transfer ownership of your original input or output to Open Frontier. You remain responsible for third-party rights, model terms, source-material licenses, trademarks, and the suitability of the result.</p></div></details>
+      <details class="faq-item"><summary>Can I fork or sell modified software?</summary><div class="faq-answer"><p>MIT-licensed repositories allow commercial modification and redistribution while requiring preservation of the copyright and license notice. Check the exact repository and all bundled dependencies or assets first.</p></div></details>
+      <details class="faq-item"><summary>Who owns a contribution?</summary><div class="faq-answer"><p>You retain copyright in your contribution and license it under the repository's stated license when you submit it. Do not contribute material you lack the right to license.</p></div></details>
+      <details class="faq-item"><summary>How do copyright or trademark complaints work?</summary><div class="faq-answer"><p>Report the exact URL, the protected work or mark, your relationship to it, and contact details to the responsible repository owner. A disputed item may be disabled while provenance, nominative use, and license terms are reviewed.</p></div></details>
+    </section>
+
+    <section class="faq-group" id="contributors">
+      <h2>Contributing</h2>
+      <details class="faq-item" open><summary>What can I contribute?</summary><div class="faq-answer"><p>Bug fixes, accessibility, tests, documentation, translations, performance, domain review, simulations, focused tools, templates, platform infrastructure, security reports, and curriculum material are all useful. See the <a href="/contribute">contribution guide</a>.</p></div></details>
+      <details class="faq-item"><summary>Is every contribution one HTML file?</summary><div class="faq-answer"><p>No. That pattern applies mainly to static tool and simulation stores. Platform products are normal multi-package codebases with SDKs, Workers, databases, CI, and tests. Choose a scope that matches your experience.</p></div></details>
+      <details class="faq-item"><summary>Where do I open an issue or pull request?</summary><div class="faq-answer"><p>Use the repository for the affected store or product. The ecosystem spans multiple GitHub organizations. Store documentation and repository pages should point to the correct tracker; the umbrella <a href="https://github.com/serge-ivo">GitHub profile</a> is a fallback for discovery.</p></div></details>
+      <details class="faq-item"><summary>What will reviewers look for?</summary><div class="faq-answer"><p>Correctness, a narrow and understandable change, accessibility, responsive behavior, privacy implications, dependency and asset licenses, test evidence, and fit with the local repository's conventions. Platform changes also need security, migration, compatibility, and deployment consideration.</p></div></details>
+      <details class="faq-item"><summary>Are contributors paid?</summary><div class="faq-answer"><p>Ordinary open-source contributions are currently voluntary. The planned Pro marketplace includes creator economics, but the project is pre-revenue and should not be treated as a current income opportunity. Any paid engagement must be separately agreed in writing.</p></div></details>
+      <details class="faq-item"><summary>Can an AI agent submit a contribution?</summary><div class="faq-answer"><p>Yes, but the human submitter remains responsible for understanding, testing, licensing, and reviewing the result. Large unexplained generated changes are less useful than focused changes with clear verification.</p></div></details>
+      <details class="faq-item"><summary>Is there a code of conduct?</summary><div class="faq-answer"><p>Repository-specific conduct files take precedence. At minimum, participation must be evidence-based and respectful, and must exclude harassment, malware, deceptive interfaces, plagiarism, illegal exploitation, and bad-faith disruption.</p></div></details>
+    </section>
+
+    <section class="faq-group" id="business">
+      <h2>Business model and stakeholders</h2>
+      <details class="faq-item" open><summary>How will the project sustain itself?</summary><div class="faq-answer"><p>The intended model is that free products drive access and discovery while Pro products charge for server-backed value. The platform subscription concept is $9 per month with a creator usage pool; ProWebStore uses per-site pricing. This is a plan under validation, not established revenue.</p></div></details>
+      <details class="faq-item"><summary>Are there ads or data sales?</summary><div class="faq-answer"><p>The stated model does not depend on advertising or selling personal data. Hosting telemetry and analytics may still exist for operations and product measurement; that is different from behavioral advertising.</p></div></details>
+      <details class="faq-item"><summary>How mature is the project?</summary><div class="faq-answer"><p>Maturity is uneven. Several core platforms are production-grade or production with caveats; simulations and many static tools are live; AI products are early beta; several Pro products are scaffolded or planned. The <a href="/stakeholders">stakeholder brief</a> gives a candid summary.</p></div></details>
+      <details class="faq-item"><summary>What are the largest current risks?</summary><div class="faq-answer"><p>Catalog sprawl, inconsistent claims across stores, uneven test coverage, single-maintainer concentration, limited external contribution, incomplete Pro products, unvalidated conversion assumptions, and the operational burden of many domains and repositories.</p></div></details>
+      <details class="faq-item"><summary>What partnership opportunities exist?</summary><div class="faq-answer"><p>Curriculum pilots, domain validation, accessibility audits, open-source mentorship, content distribution, cloud or model credits, public-interest technology programs, and creator onboarding are the most aligned opportunities. See the <a href="/stakeholders#asks">current asks</a>.</p></div></details>
+      <details class="faq-item"><summary>What are the billing, cancellation, and refund terms?</summary><div class="faq-answer"><p>Do not assume one policy applies to every preview. Public paid services should state price, renewal, cancellation effect, refund rules, taxes, included quotas, and overage behavior before purchase. The ecosystem is pre-revenue, so intended pricing is not the same as a current commercial offer.</p></div></details>
+      <details class="faq-item"><summary>Can an organization get an SLA or data-processing agreement?</summary><div class="faq-answer"><p>Not as an ecosystem-wide default today. Any SLA, support commitment, DPA, data residency term, or procurement requirement must be agreed for the specific service in writing.</p></div></details>
+    </section>
+
+    <section class="faq-group" id="security">
+      <h2>Security and reliability</h2>
+      <details class="faq-item" open><summary>Is the platform security audited?</summary><div class="faq-answer"><p>There is automated compliance and test infrastructure in the mature stores, but no ecosystem-wide claim of independent penetration testing or formal certification. Treat beta products accordingly.</p></div></details>
+      <details class="faq-item"><summary>How do I report a vulnerability?</summary><div class="faq-answer"><p>Use the security reporting instructions in the affected repository if present. Avoid publishing exploit details before maintainers have had a reasonable opportunity to respond. If no security contact is visible, contact the repository owner privately through GitHub.</p></div></details>
+      <details class="faq-item"><summary>Are products guaranteed to remain available?</summary><div class="faq-answer"><p>No uptime SLA applies to free public products unless a specific service contract says otherwise. Stores can be changed, consolidated, or retired. Open source reduces lock-in, but hosted availability is best effort.</p></div></details>
+      <details class="faq-item"><summary>Should I rely on browser storage as a backup?</summary><div class="faq-answer"><p>No. Local storage, IndexedDB, and browser caches can be cleared by the user, browser, device policy, or storage pressure. Export important work and keep an independent backup.</p></div></details>
+      <details class="faq-item"><summary>How are abusive public items moderated?</summary><div class="faq-answer"><p>Report the exact item and reason to the responsible store repository. Items involving malware, credential theft, harassment, illegal exploitation, impersonation, or rights violations can be disabled while reviewed. A mature marketplace will need documented appeal and repeat-offender processes.</p></div></details>
+    </section>
+
+    <section class="faq-group" id="project">
+      <h2>Project and governance</h2>
+      <details class="faq-item" open><summary>Who runs Open Frontier?</summary><div class="faq-answer"><p>It is currently founder-led and primarily maintained by Serge, with AI-assisted development and a growing set of repositories. The project does not yet have a formal foundation, elected governance body, or large maintainer council.</p></div></details>
+      <details class="faq-item"><summary>How are technical decisions made?</summary><div class="faq-answer"><p>Repository maintainers make product-local decisions. Cross-store conventions are documented for areas such as layout, design, analytics, and roles, but internal architectures are intentionally not forced into one shape.</p></div></details>
+      <details class="faq-item"><summary>Why do numbers differ between older pages?</summary><div class="faq-answer"><p>The catalog has grown quickly and some generated documentation lags source repositories. Counts can also differ because one source counts repositories, another lists storefront items, and another excludes previews. Dated status snapshots and explicit maturity labels are being used to reduce that ambiguity.</p></div></details>
+      <details class="faq-item"><summary>What is the roadmap?</summary><div class="faq-answer"><p>Near-term priorities are quality and discoverability for existing stores, stronger contribution workflows, external validation, more consistent documentation, completion of selected Pro capabilities, and evidence of real usage before further expansion. The detailed roadmap lives in the <a href="https://openfrontier-docs.pages.dev/ecosystem/roadmap/">documentation</a>.</p></div></details>
+      <details class="faq-item"><summary>How is a product retired?</summary><div class="faq-answer"><p>Retirement should consider active usage, export or migration, source preservation where licensed, public notice where practical, route behavior, and deletion of server-side data. Free hosting is best effort and no product is guaranteed to remain online indefinitely.</p></div></details>
+    </section>
+
+    <section class="faq-group" id="support">
+      <h2>Support and contact</h2>
+      <details class="faq-item" open><summary>I found a bug. What should I include?</summary><div class="faq-answer"><p>Include the exact URL, browser and version, device or operating system, steps to reproduce, expected and actual behavior, console errors if available, and a screenshot that does not expose private data.</p></div></details>
+      <details class="faq-item"><summary>Is support guaranteed?</summary><div class="faq-answer"><p>Free products are community and best-effort supported. Priority support is an intended Pro capability. Response times depend on maintainer availability and issue severity.</p></div></details>
+      <details class="faq-item"><summary>Where is the full documentation?</summary><div class="faq-answer"><p>Visit <a href="https://openfrontier-docs.pages.dev">openfrontier-docs.pages.dev</a> for architecture, platform capabilities, store notes, maturity assessments, strategy, and roadmap.</p></div></details>
+    </section>
+  </div>
+</main>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div><h3>Open Frontier</h3><p>Browser-based tools and interactive knowledge, built in the open.</p></div><div><h4>Project</h4><a href="/">Catalog</a><a href="/about">About</a><a href="/stakeholders">Stakeholder brief</a></div><div><h4>Participate</h4><a href="/contribute">Contribute</a><a href="https://github.com/serge-ivo">GitHub</a><a href="https://openfrontier-docs.pages.dev">Documentation</a></div><div><h4>Policies</h4><a href="/privacy">Privacy and data</a><a href="#licensing">Licensing</a><a href="#security">Security</a></div></div><div class="footer-note">Answers updated June 9, 2026.</div></div></footer>
+</body>
+</html>

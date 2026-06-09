@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OFO Agent Tools - Connect Browser Tools to Claude and Codex</title>
+  <meta name="description" content="How Open Frontier One can expose deterministic browser tools to Claude, Codex, and other MCP clients through a secure paired browser runner.">
+  <link rel="canonical" href="https://openfrontier.pages.dev/agent-tools">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="site-nav" aria-label="Main navigation"><div class="nav-inner"><a class="brand" href="/"><img class="brand-mark" src="/logo-mark.svg" alt=""><span>Open Frontier <span class="brand-one">One</span></span></a><div class="nav-links"><a href="/about">About</a><a href="/guide">Guide</a><a href="/faq">FAQ</a><a href="/stakeholders">Stakeholders</a><a href="https://openfrontier-docs.pages.dev">Documentation</a><a class="nav-cta" href="/contribute">Contribute</a></div></div></nav>
+
+<main id="main">
+  <header class="page-hero container narrow">
+    <span class="eyebrow">OFO Agent Tools</span>
+    <h1>Let your AI use the browser tools <span class="gradient-text">you already trust.</span></h1>
+    <p class="lede">Connect Claude, Codex, or another MCP client to deterministic OFO tools. The agent chooses a tool and supplies inputs; a paired browser runs the work locally and returns an artifact.</p>
+    <div class="actions">
+      <a class="button primary" href="#example">See the working example</a>
+      <a class="button" href="#architecture">Understand the architecture</a>
+    </div>
+    <p class="notice"><strong>Prototype status:</strong> the browser invocation contract and SVG-to-PNG example work today. The remote MCP relay, pairing interface, and cross-store registry described below are the next platform layer, not a finished public service.</p>
+  </header>
+
+  <article class="prose container narrow">
+    <nav class="toc" aria-label="Agent tools sections">
+      <a href="#example">Example</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#contract">Tool contract</a>
+      <a href="#security">Security</a>
+      <a href="#devices">Phone and desktop</a>
+      <a href="#mcp">MCP surface</a>
+    </nav>
+
+    <section id="example">
+      <span class="eyebrow">Working vertical slice</span>
+      <h2>“Convert my OFO SVG logo to PNG.”</h2>
+      <p>The FreeDesignStore image converter now publishes a machine-readable manifest and a browser API. An agent can provide the SVG file, request PNG at a specific width, and receive the generated file without clicking through the interface.</p>
+      <div class="agent-example">
+        <div><strong>Input</strong><span><code>logo.svg</code></span></div>
+        <div><strong>Browser tool</strong><span><code>ofo.design.image-convert</code></span></div>
+        <div><strong>Result</strong><span><a href="/logo.png">logo.png</a>, 940 × 191, transparent PNG</span></div>
+      </div>
+      <p>This conversion uses the browser canvas. It does not use an image-generation model. The agent still uses normal language-model tokens to understand and request the task, but the image bytes do not need to enter the prompt or model context.</p>
+    </section>
+
+    <section id="architecture">
+      <span class="eyebrow">Proposed architecture</span>
+      <h2>MCP controls the job. A paired browser performs it.</h2>
+      <div class="agent-flow">
+        <div><b>1</b><strong>Claude or Codex</strong><span>Calls an OFO MCP tool.</span></div>
+        <i aria-hidden="true">&rarr;</i>
+        <div><b>2</b><strong>OFO MCP relay</strong><span>Authenticates, validates, and queues the job.</span></div>
+        <i aria-hidden="true">&rarr;</i>
+        <div><b>3</b><strong>Paired browser runner</strong><span>Accepts the job over an outbound secure connection.</span></div>
+        <i aria-hidden="true">&rarr;</i>
+        <div><b>4</b><strong>OFO store tool</strong><span>Runs locally and produces an artifact.</span></div>
+      </div>
+      <p>An MCP server cannot safely take control of an arbitrary browser tab by itself. The browser must opt in through an OFO Runner, initially a browser extension or installed desktop companion. The runner opens an isolated tool page, checks its declared capabilities, invokes it, and transfers only the requested inputs and outputs.</p>
+    </section>
+
+    <section id="contract">
+      <span class="eyebrow">Browser tool contract</span>
+      <h2>One small protocol across every store.</h2>
+      <p>Each compatible page publishes <code>tool.json</code> for discovery and exposes <code>window.OFOTool.invoke(request)</code> at runtime. The manifest describes schemas, permissions, privacy, deterministic behavior, and artifact output.</p>
+      <pre><code>{
+  "id": "ofo.design.image-convert",
+  "privacy": "local-only",
+  "permissions": [
+    "input:provided-file",
+    "compute:canvas",
+    "output:create-file"
+  ]
+}</code></pre>
+      <p>The same contract can cover format conversion, image resizing, JSON formatting, document generation, audio processing, data cleaning, simulation runs, and other bounded browser tasks. Tools that require accounts, network APIs, payments, or sensitive data must declare those requirements separately.</p>
+    </section>
+
+    <section id="security">
+      <span class="eyebrow">Security model</span>
+      <h2>Declared tools, explicit capabilities, bounded artifacts.</h2>
+      <div class="decision"><strong>No arbitrary scripts</strong><p>The first release should invoke only registered tool IDs with validated inputs. It should not expose a general “run JavaScript in my browser” capability.</p></div>
+      <div class="decision"><strong>Pairing and approval</strong><p>Every runner belongs to a user account and device. Users choose ask-every-time, approve-this-tool, or approved-automation modes.</p></div>
+      <div class="decision"><strong>Isolated execution</strong><p>Run jobs in a fresh tab, iframe, worker, or browser context with origin checks, timeouts, input limits, and a verified manifest version.</p></div>
+      <div class="decision"><strong>Artifact references</strong><p>Large files move through short-lived encrypted uploads or directly through the local bridge. MCP responses return metadata and a reference, not megabytes of base64 in the model conversation.</p></div>
+      <div class="decision"><strong>Auditable jobs</strong><p>Record the requesting client, tool version, permissions, input hashes, result hashes, duration, and user approval without retaining private input content by default.</p></div>
+    </section>
+
+    <section id="devices">
+      <span class="eyebrow">Anywhere access</span>
+      <h2>Desktop is reliable. Mobile needs honest constraints.</h2>
+      <p>A desktop extension or companion can remain connected and process jobs while the browser is open. A phone PWA can pair, approve jobs, upload files, and run foreground tools, but mobile operating systems may suspend background browser work. Reliable unattended mobile execution therefore needs either an active foreground runner or an optional hosted ephemeral browser.</p>
+      <p>Voice is an input layer rather than a separate execution system: speak to Claude or another assistant, let it call the same MCP tool, approve on the paired device when required, and receive the result as a downloadable artifact.</p>
+    </section>
+
+    <section id="mcp">
+      <span class="eyebrow">Agent-facing API</span>
+      <h2>A compact MCP surface can expose the whole ecosystem.</h2>
+      <dl class="definition-list">
+        <div class="definition"><dt><code>list_browser_tools</code></dt><dd>Search supported tools by capability, format, store, privacy, and device availability.</dd></div>
+        <div class="definition"><dt><code>browser_tool_info</code></dt><dd>Return schemas, permissions, examples, limitations, and the tool version.</dd></div>
+        <div class="definition"><dt><code>run_browser_tool</code></dt><dd>Submit validated inputs to a selected paired runner and return a job ID.</dd></div>
+        <div class="definition"><dt><code>get_browser_job</code></dt><dd>Read status, approval requirements, logs, and artifact references.</dd></div>
+        <div class="definition"><dt><code>cancel_browser_job</code></dt><dd>Cancel queued or running work.</dd></div>
+        <div class="definition"><dt><code>list_browser_runners</code></dt><dd>Show paired desktop, mobile, or hosted runners and their current capabilities.</dd></div>
+      </dl>
+      <p>The goal is one MCP connection for OFO, not a separate MCP server configuration for every individual store.</p>
+    </section>
+  </article>
+</main>
+
+<footer><div class="footer-inner"><div><img class="footer-logo" src="/logo-light.svg" alt="Open Frontier One"><p>Browser tools that people and agents can use.</p></div><div class="footer-links"><a href="/guide">Field guide</a><a href="/privacy">Privacy</a><a href="/contribute">Contribute</a></div></div></footer>
+</body>
+</html>

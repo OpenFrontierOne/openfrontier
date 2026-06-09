@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contribute to Open Frontier</title>
+  <meta name="description" content="How to contribute tools, simulations, platform code, documentation, tests, accessibility improvements, and domain expertise to Open Frontier.">
+  <link rel="canonical" href="https://openfrontier.pages.dev/contribute">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="site-nav" aria-label="Main navigation"><div class="nav-inner"><a class="brand" href="/"><img class="brand-mark" src="/logo-mark.svg" alt=""><span>Open Frontier <span class="brand-one">One</span></span></a><div class="nav-links"><a href="/about">About</a><a href="/guide">Guide</a><a href="/faq">FAQ</a><a href="/stakeholders">Stakeholders</a><a href="https://openfrontier-docs.pages.dev">Documentation</a><a class="nav-cta" href="/contribute">Contribute</a></div></div></nav>
+
+<main id="main">
+  <header class="page-hero container narrow">
+    <span class="eyebrow">Contribution guide</span>
+    <h1>Make one part of the ecosystem <span class="gradient-text">more useful.</span></h1>
+    <p class="lede">You do not need to understand every store. Pick one user problem, one repository, and a contribution you can explain and verify.</p>
+  </header>
+
+  <article class="prose container narrow">
+    <div class="notice"><strong>Repository model:</strong> Open Frontier spans multiple GitHub organizations and many repositories. Always follow the target repository's <code>README.md</code>, <code>CONTRIBUTING.md</code>, license, tests, and local conventions over general guidance on this page.</div>
+
+    <h2>Ways to contribute</h2>
+    <div class="grid two">
+      <div class="card"><h3>Use and report</h3><p>Test a real workflow. File a reproducible defect, broken link, unclear claim, mobile issue, or browser incompatibility.</p></div>
+      <div class="card"><h3>Improve access</h3><p>Fix keyboard navigation, labels, contrast, reduced-motion behavior, responsive layouts, or plain-language explanations.</p></div>
+      <div class="card"><h3>Add knowledge</h3><p>Review scientific assumptions, cite sources, improve an explanation, add test vectors, or map a simulation to a curriculum.</p></div>
+      <div class="card"><h3>Build a focused tool</h3><p>Add a self-contained utility or simulation that solves a defined problem and fits an existing store category.</p></div>
+      <div class="card"><h3>Strengthen platforms</h3><p>Work on SDKs, Workers, databases, auth, publishing, compliance, tests, observability, or deployment automation.</p></div>
+      <div class="card"><h3>Improve the commons</h3><p>Write documentation, examples, translations, contributor onboarding, issue templates, or release notes.</p></div>
+    </div>
+
+    <h2>Choose the right contribution level</h2>
+    <h3>Low setup: static tools and simulations</h3>
+    <p>Many knowledge and utility stores use self-contained HTML, CSS, and JavaScript. These are good places for a narrow bug fix, accessibility improvement, clearer explanation, or new focused experience. Avoid unnecessary frameworks and external dependencies.</p>
+
+    <h3>Moderate setup: storefronts and content systems</h3>
+    <p>Storefront changes can affect catalog rendering, search, metadata, navigation, and deployment. Check how registry data is generated before manually editing generated output.</p>
+
+    <h3>Advanced setup: platform repositories</h3>
+    <p>App, game, web, and agent platforms include Cloudflare Workers, SDKs, CLIs, databases, Durable Objects, R2, authentication, CI, and publishing workflows. Read architecture and deployment documentation before changing contracts or infrastructure.</p>
+
+    <h2>Before writing code</h2>
+    <ol>
+      <li>Confirm that the issue belongs to the repository you found.</li>
+      <li>Search existing issues and pull requests for duplicate work.</li>
+      <li>Read local contributor and development instructions.</li>
+      <li>For a large feature, open an issue with the user problem and proposed scope before implementation.</li>
+      <li>For a small fix, make the smallest complete change and include verification.</li>
+    </ol>
+
+    <h2>What a strong pull request contains</h2>
+    <ul>
+      <li>A clear statement of the user-visible problem.</li>
+      <li>A focused implementation without unrelated formatting or refactoring.</li>
+      <li>Tests or manual verification appropriate to the risk.</li>
+      <li>Screenshots for visual changes, including mobile where relevant.</li>
+      <li>Accessibility and privacy impact notes.</li>
+      <li>Source and license information for new assets, datasets, models, or dependencies.</li>
+      <li>Migration and rollback notes for database, API, auth, or deployment changes.</li>
+    </ul>
+
+    <h2>Quality expectations</h2>
+    <h3>Correctness</h3>
+    <p>Educational simulations should state simplifying assumptions and, where possible, link to authoritative references. Calculators need boundary cases and known-answer tests. AI-generated content is not evidence of correctness.</p>
+    <h3>Accessibility</h3>
+    <p>Use semantic HTML, visible focus, keyboard-operable controls, useful labels, sufficient contrast, responsive layouts, and reduced-motion support where animation is not essential.</p>
+    <h3>Privacy</h3>
+    <p>Keep processing local when practical. Explain network requests. Do not add trackers directly to tool source. Never commit credentials or collect data merely because it may be useful later.</p>
+    <h3>Dependencies</h3>
+    <p>Static stores favor self-contained files. Platform repositories use their established package managers and patterns. Do not introduce cross-store runtime dependencies; proven shared patterns are vendored and adapted.</p>
+    <h3>Design</h3>
+    <p>Follow the store's design system and existing interaction patterns. A contribution should feel native to its target product, not introduce an unrelated visual system.</p>
+
+    <h2>Licensing and authorship</h2>
+    <p>By contributing, you certify that you have the right to submit the work under the repository's license. Free-store source is generally MIT licensed, but verify the target. Do not copy proprietary code, unlicensed images, restricted datasets, copyrighted books, or model weights with incompatible terms.</p>
+    <p>AI-assisted contributions are allowed. The submitting human is responsible for understanding the code, checking provenance, testing behavior, and responding to review.</p>
+
+    <h2>Good first contributions</h2>
+    <ul>
+      <li>Fix a confirmed broken link or inaccurate public claim.</li>
+      <li>Add keyboard support and labels to a canvas or custom control.</li>
+      <li>Add a known-answer test to a calculator or simulation.</li>
+      <li>Document browser support and a graceful fallback.</li>
+      <li>Improve a tool's empty, loading, error, and export states.</li>
+      <li>Add a source citation and assumptions section to an educational experience.</li>
+      <li>Reproduce an issue across two browsers and narrow its cause.</li>
+    </ul>
+
+    <h2>Review and release</h2>
+    <p>Maintainers may ask for scope reduction, stronger evidence, changes to fit local conventions, or separation into multiple pull requests. Acceptance depends on correctness and maintenance cost, not only whether a feature works once.</p>
+    <p>Merging does not guarantee immediate deployment. Stores have different release and deployment workflows. Never include production secrets or attempt infrastructure changes outside the documented process.</p>
+
+    <h2>Maintainer responsibilities</h2>
+    <p>Maintaining is different from contributing. A maintainer is expected to triage reports, review changes fairly, preserve compatibility where promised, coordinate releases, document decisions, respond to security issues, and retire unsupported behavior explicitly. Ownership should be bounded to a store or capability rather than assumed for the entire ecosystem.</p>
+
+    <h2>Content and community standards</h2>
+    <p>Contributions must not include harassment, malware, credential theft, deceptive interfaces, non-consensual intimate material, illegal exploitation, discriminatory targeting, plagiarism, or content whose primary purpose is bypassing safety or access controls. Educational security, crypto, and AI material should be scoped to legitimate learning and defensive use.</p>
+    <p>Disagreement is expected. Reviews should address behavior, evidence, scope, and maintainability rather than the contributor. Repeated bad-faith behavior may result in issue closure or loss of participation access.</p>
+
+    <h2>Translations and localization</h2>
+    <p>Translations are useful when the underlying source is stable and the contributor can maintain meaning, not only literal wording. Preserve technical notation, units, warnings, citations, and accessible labels. Locale-sensitive finance, legal, date, number, and educational content needs explicit regional context.</p>
+
+    <h2>Start here</h2>
+    <div class="actions">
+      <a class="button primary" href="https://github.com/serge-ivo">Find repositories on GitHub</a>
+      <a class="button" href="https://openfrontier-docs.pages.dev/overview/stores/">Compare stores</a>
+      <a class="button" href="/faq#contributors">Contributor FAQ</a>
+    </div>
+  </article>
+</main>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div><h3>Open Frontier</h3><p>Browser-based tools and interactive knowledge, built in the open.</p></div><div><h4>Project</h4><a href="/">Catalog</a><a href="/about">About</a><a href="/stakeholders">Stakeholder brief</a></div><div><h4>Participate</h4><a href="https://github.com/serge-ivo">GitHub</a><a href="/faq">FAQ</a><a href="https://openfrontier-docs.pages.dev">Documentation</a></div><div><h4>Policies</h4><a href="/privacy">Privacy and data</a><a href="/faq#licensing">Licensing</a><a href="/faq#security">Security</a></div></div><div class="footer-note">Contribution guide updated June 9, 2026.</div></div></footer>
+</body>
+</html>

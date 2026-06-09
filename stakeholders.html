@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open Frontier Stakeholder Brief</title>
+  <meta name="description" content="A candid project brief covering Open Frontier's product portfolio, maturity, audience, architecture, economics, risks, roadmap, and partnership opportunities.">
+  <link rel="canonical" href="https://openfrontier.pages.dev/stakeholders">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="site-nav" aria-label="Main navigation"><div class="nav-inner"><a class="brand" href="/"><img class="brand-mark" src="/logo-mark.svg" alt=""><span>Open Frontier <span class="brand-one">One</span></span></a><div class="nav-links"><a href="/about">About</a><a href="/guide">Guide</a><a href="/faq">FAQ</a><a href="/stakeholders">Stakeholders</a><a href="https://openfrontier-docs.pages.dev">Documentation</a><a class="nav-cta" href="/contribute">Contribute</a></div></div></nav>
+
+<main id="main">
+  <header class="page-hero container narrow">
+    <span class="eyebrow">Stakeholder brief</span>
+    <h1>A broad product vision with <span class="gradient-text">real assets and real execution risk.</span></h1>
+    <p class="lede">This brief is for partners, funders, educators, creators, maintainers, and technical evaluators who need a candid view of the project rather than a marketing summary.</p>
+  </header>
+
+  <article class="prose container narrow">
+    <div class="notice"><strong>Snapshot date:</strong> June 9, 2026. Open Frontier is actively developed and pre-revenue. Counts and maturity labels are a dated snapshot, not a guarantee of current availability.</div>
+
+    <h2>Executive summary</h2>
+    <p>Open Frontier is building a distributed ecosystem of free browser tools, interactive educational simulations, and platform products for apps, games, websites, and AI. Its strongest differentiation is the combination of immediate access, inspectable source, focused domain storefronts, and a reusable Cloudflare-based platform foundation.</p>
+    <p>The project has substantial breadth: six simulation stores with 166 live simulations, multiple practical tool stores, mature app and web infrastructure, and dozens of AI and platform repositories. The central challenge is no longer proving that the founder can create products quickly. It is proving sustained user value, quality consistency, contribution repeatability, and a viable paid conversion path without allowing portfolio breadth to overwhelm operations.</p>
+
+    <h2>Who it serves</h2>
+    <div class="grid two">
+      <div class="card"><h3>Learners and educators</h3><p>Interactive access to difficult concepts without lab equipment, institutional enrollment, or mandatory accounts.</p></div>
+      <div class="card"><h3>Independent creators</h3><p>Focused tools and publishing platforms for making apps, games, sites, designs, content, and AI utilities.</p></div>
+      <div class="card"><h3>Small organizations</h3><p>Low-friction software and websites for users who cannot justify large suites or specialized teams.</p></div>
+      <div class="card"><h3>Open-source contributors</h3><p>Small static contribution units alongside advanced platform work in SDKs, Workers, data, auth, and deployment.</p></div>
+    </div>
+
+    <h2>Portfolio and maturity</h2>
+    <table class="status-table">
+      <thead><tr><th>Portfolio</th><th>Current evidence</th><th>Maturity</th></tr></thead>
+      <tbody>
+        <tr><td>Apps</td><td>SDK, CLI, auth, storage, rooms, publishing, compliance, CI, live catalog</td><td>Production</td></tr>
+        <tr><td>Pro apps</td><td>Mature SDK and database schema, Stripe integration, marketplace mechanics</td><td>Production core; pre-revenue</td></tr>
+        <tr><td>Games</td><td>50+ live games, SDK, templates, quality automation</td><td>Post-beta</td></tr>
+        <tr><td>Pro games</td><td>Initial platform and CLI work; missing or incomplete creation infrastructure</td><td>Scaffold</td></tr>
+        <tr><td>Free websites</td><td>AI creation flow, 108 templates, strong automated tests, fast deployment</td><td>Production</td></tr>
+        <tr><td>Pro websites</td><td>Knowledge-graph CMS and high test coverage; architecture changing</td><td>Production with caveats</td></tr>
+        <tr><td>Browser AI</td><td>50+ agents and libraries with SDK and publishing infrastructure</td><td>Early beta</td></tr>
+        <tr><td>Server AI</td><td>Marketplace, instances, D1 and Durable Object foundations</td><td>Early beta</td></tr>
+        <tr><td>Simulations</td><td>166 live items across robotics, quantum, crypto, chips, space, and biology</td><td>Live content; validation varies</td></tr>
+        <tr><td>Design and marketing</td><td>64 live browser tools across two stores</td><td>Live; newer operational base</td></tr>
+        <tr><td>Other tool stores</td><td>Code, music, writing, books, finance, data, and P2P catalogs</td><td>Live to beta; uneven depth</td></tr>
+        <tr><td>Pro design and marketing</td><td>Storefront, console, marketplace, and backend scaffolding</td><td>Preview, not complete service</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Technical strategy</h2>
+    <p>The platform is built primarily on Cloudflare Pages and Workers, D1, R2, Durable Objects, KV, and GitHub-based source and deployment workflows. Static knowledge stores favor self-contained HTML experiences. Platform stores use SDKs, CLIs, admin Workers, compliance checks, registries, and per-product hosting.</p>
+    <p>Each store is operationally independent. Shared solutions are generally vendor-copied and adapted rather than introduced as cross-store runtime dependencies. This increases some duplication but lowers coordination risk and lets products evolve independently.</p>
+    <p>The strongest architectural assets are edge-native deployment, browser-first execution, reusable publishing patterns, mature app SDK work, a high-test web platform, and a large existing content surface. The cost is a wide operational footprint across domains, organizations, repositories, workflows, and generated documentation.</p>
+
+    <h2>Economic model</h2>
+    <p>The intended economic loop is:</p>
+    <ol>
+      <li>Free tools, simulations, apps, games, sites, and agents create access and discovery.</li>
+      <li>Users with server-dependent needs upgrade to Pro products.</li>
+      <li>A proposed $9 monthly platform subscription funds infrastructure and a creator usage pool.</li>
+      <li>The platform retains a proposed 10 percent fee and distributes the remaining pool by usage.</li>
+      <li>ProWebStore uses per-site pricing because each deployment has independent costs.</li>
+    </ol>
+    <p><strong>This model is not yet validated.</strong> Current revenue is $0 according to the project documentation. Stripe and marketplace mechanics being present is not equivalent to proven demand, retention, creator earnings, or unit economics at scale.</p>
+
+    <h2>Evidence and success measures</h2>
+    <p>The next phase should be evaluated less by repository or item count and more by:</p>
+    <ul>
+      <li>Weekly active users and repeat usage by store.</li>
+      <li>Task completion and export success for practical tools.</li>
+      <li>Learning completion, return rate, and educator adoption for simulations.</li>
+      <li>Search discovery and direct-link sharing.</li>
+      <li>Issue resolution time, defect escape rate, and accessibility coverage.</li>
+      <li>External contributor activation, repeat contribution, and maintainer growth.</li>
+      <li>Free-to-Pro intent, conversion, retention, infrastructure cost, and support burden.</li>
+    </ul>
+    <p>Raw catalog size remains useful only when paired with quality, discovery, and repeat-use evidence.</p>
+
+    <h2>Material risks</h2>
+    <table class="status-table">
+      <thead><tr><th>Risk</th><th>Why it matters</th><th>Practical response</th></tr></thead>
+      <tbody>
+        <tr><td>Portfolio sprawl</td><td>More stores can dilute maintenance, quality, and positioning.</td><td>Prioritize depth, traffic, and retention before new verticals.</td></tr>
+        <tr><td>Single-maintainer concentration</td><td>Knowledge, review, security, and release capacity are concentrated.</td><td>Document operations and recruit repeat maintainers in selected stores.</td></tr>
+        <tr><td>Uneven maturity</td><td>Users can mistake scaffolds for reliable products.</td><td>Use dated status labels and remove unsupported marketing claims.</td></tr>
+        <tr><td>Quality and domain accuracy</td><td>Educational or calculation errors undermine trust.</td><td>Add source citations, known-answer tests, and expert review paths.</td></tr>
+        <tr><td>Unvalidated economics</td><td>Pricing and creator payouts may not cover support and compute.</td><td>Run narrow paid pilots before broad marketplace promises.</td></tr>
+        <tr><td>Operational surface</td><td>Many domains, Workers, repos, and secrets increase failure modes.</td><td>Automate inventory, monitoring, dependency updates, and deprecation.</td></tr>
+        <tr><td>Privacy and security variance</td><td>Static and server products have different risk profiles.</td><td>Publish per-product data flows and conduct focused security review.</td></tr>
+        <tr><td>Documentation drift</td><td>Fast growth causes conflicting counts and claims.</td><td>Generate catalogs from authoritative registries and date snapshots.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Near-term priorities</h2>
+    <ol>
+      <li><strong>Consolidate public truth:</strong> align status, counts, pricing language, privacy claims, and product links.</li>
+      <li><strong>Instrument value:</strong> measure repeat usage and task completion without adopting invasive tracking.</li>
+      <li><strong>Raise quality:</strong> focus tests, accessibility, domain validation, and browser compatibility on the highest-use stores.</li>
+      <li><strong>Prove contribution:</strong> take a small cohort from first issue through merged contribution and repeat involvement.</li>
+      <li><strong>Validate one paid path:</strong> choose a mature product, define service boundaries, and run a limited paid pilot.</li>
+      <li><strong>Control expansion:</strong> require evidence and ownership before opening another store.</li>
+    </ol>
+
+    <h2>Decision gates</h2>
+    <table class="status-table">
+      <thead><tr><th>Decision</th><th>Evidence required</th></tr></thead>
+      <tbody>
+        <tr><td>Promote beta to production</td><td>Reliable core workflow, named owner, data-flow documentation, monitoring, recovery path, and risk-appropriate tests.</td></tr>
+        <tr><td>Launch a new store</td><td>Distinct audience need, accountable owner, distribution path, maintenance budget, and evidence it should not be a category in an existing store.</td></tr>
+        <tr><td>Launch paid service</td><td>Clear service boundary, pricing terms, support expectation, refund and cancellation behavior, cost model, security review, and measured pilot.</td></tr>
+        <tr><td>Add a major dependency</td><td>License compatibility, maintenance health, security posture, bundle or runtime cost, and documented replacement path.</td></tr>
+        <tr><td>Retire a product</td><td>Usage review, migration or export guidance, public notice where practical, source preservation where licensed, and data deletion plan.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Governance direction</h2>
+    <p>The current model is founder-led, which is fast but creates concentration risk. A credible transition does not require premature bureaucracy; it requires explicit ownership. The next layer should assign maintainers to bounded stores, publish decision records for cross-store changes, define security escalation, and document who can release or change infrastructure.</p>
+    <p>A formal foundation, board, or contributor council becomes useful only after there is a real multi-person maintainer community. Until then, transparent status, repository-level ownership, and written operational procedures are higher-value controls.</p>
+
+    <h2>What would invalidate the thesis</h2>
+    <p>The project should change direction if users do not return, educators cannot trust simulation quality, creators do not value the publishing platform, maintenance cost rises faster than usage, or paid server features cannot support their compute and support burden. Breadth alone is not validation.</p>
+
+    <h2 id="asks">Current partnership asks</h2>
+    <ul>
+      <li><strong>Educators:</strong> run a classroom pilot and report where simulations help or confuse.</li>
+      <li><strong>Domain experts:</strong> review assumptions, equations, terminology, and source citations in one simulation store.</li>
+      <li><strong>Accessibility specialists:</strong> audit canvas-heavy interactions and define reusable remediation patterns.</li>
+      <li><strong>Open-source maintainers:</strong> help design contributor triage and ownership for a bounded product area.</li>
+      <li><strong>Creators:</strong> test the app, game, website, or agent publishing path and document friction.</li>
+      <li><strong>Infrastructure partners:</strong> support credits, observability, security review, or sustainable open-source hosting.</li>
+      <li><strong>Early customers:</strong> validate a narrow Pro use case with explicit success and cost criteria.</li>
+    </ul>
+
+    <h2>Due diligence resources</h2>
+    <div class="actions">
+      <a class="button primary" href="https://openfrontier-docs.pages.dev/maturity/scorecard/">Maturity scorecard</a>
+      <a class="button" href="https://openfrontier-docs.pages.dev/architecture/overview/">Architecture</a>
+      <a class="button" href="https://openfrontier-docs.pages.dev/ecosystem/roadmap/">Roadmap</a>
+      <a class="button" href="/privacy">Privacy and data</a>
+      <a class="button" href="/contribute">Contribution model</a>
+    </div>
+  </article>
+</main>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div><h3>Open Frontier</h3><p>Browser-based tools and interactive knowledge, built in the open.</p></div><div><h4>Project</h4><a href="/">Catalog</a><a href="/about">About</a><a href="https://openfrontier-docs.pages.dev">Documentation</a></div><div><h4>Participate</h4><a href="/contribute">Contribute</a><a href="https://github.com/serge-ivo">GitHub</a><a href="/faq">FAQ</a></div><div><h4>Policies</h4><a href="/privacy">Privacy and data</a><a href="/faq#licensing">Licensing</a><a href="/faq#security">Security</a></div></div><div class="footer-note">Stakeholder snapshot updated June 9, 2026.</div></div></footer>
+</body>
+</html>
