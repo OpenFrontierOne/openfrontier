@@ -24,6 +24,7 @@ const storeContextEl = document.querySelector("#store-context");
 const accountStatusEl = document.querySelector("#account-status");
 const providerStatusEl = document.querySelector("#provider-status");
 const authApiEl = document.querySelector("#auth-api");
+const redirectUrlEl = document.querySelector("#redirect-url");
 const openaiApiKeyEl = document.querySelector("#openai-api-key");
 const anthropicApiKeyEl = document.querySelector("#anthropic-api-key");
 const goalEl = document.querySelector("#goal");
@@ -96,6 +97,7 @@ async function loadProfile() {
   interestsEl.value = state.profile.interests;
   communityVisibleEl.checked = state.profile.communityVisible;
   authApiEl.value = state.session.authApi;
+  redirectUrlEl.textContent = `Redirect URL: ${chrome.identity.getRedirectURL("ofo-copilot")}`;
   openaiApiKeyEl.value = "";
   anthropicApiKeyEl.value = "";
   renderAccountStatus();

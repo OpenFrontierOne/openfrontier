@@ -68,7 +68,7 @@ if (!sidepanel.includes('id="delete-all-local"')) {
   errors.push("Side panel is missing #delete-all-local.");
 }
 
-for (const requiredId of ["account-status", "auth-api", "sign-in", "clear-session"]) {
+for (const requiredId of ["account-status", "auth-api", "redirect-url", "sign-in", "clear-session"]) {
   if (!sidepanel.includes(`id="${requiredId}"`)) {
     errors.push(`Side panel is missing #${requiredId}.`);
   }
