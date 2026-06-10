@@ -11,10 +11,12 @@ The extension is scoped to OFO-owned platforms and stores. It should not monitor
 - Content script limited to OFO/store host permissions.
 - Current page context extraction.
 - Local profile and goals storage.
+- Explicit opt-in checkbox before community matching can treat the profile as visible.
 - Prompt helpers for:
   - explain this page
   - create a crash course
   - recommend communities
+- Local validation script for manifest permissions.
 
 ## Local install
 
@@ -36,3 +38,10 @@ The manifest should only include OFO-owned domains. Add new host permissions onl
 - Add opt-in community profile and matching.
 - Add store-owned domain registry generated from OFO metadata.
 
+## Validate
+
+Run from this repository:
+
+```sh
+node extension/tools/validate-extension.mjs
+```

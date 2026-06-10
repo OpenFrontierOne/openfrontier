@@ -1,0 +1,29 @@
+name: Extension Checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "extension/**"
+      - ".github/workflows/extension.yml"
+  pull_request:
+    paths:
+      - "extension/**"
+      - ".github/workflows/extension.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node extension/tools/validate-extension.mjs
+      - run: node --check extension/src/background.js
+      - run: node --check extension/src/content.js
+      - run: node --check extension/src/sidepanel.js
+      - run: node --check extension/tools/validate-extension.mjs

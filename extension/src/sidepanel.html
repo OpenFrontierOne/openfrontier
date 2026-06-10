@@ -25,7 +25,29 @@
     <section class="card">
       <h2>Your goal</h2>
       <textarea id="goal" rows="4" placeholder="Example: I want a crash course in quantum mechanics so I can use the simulations."></textarea>
-      <button id="save-goal">Save goal</button>
+    </section>
+
+    <section class="card">
+      <h2>Your learning profile</h2>
+      <label>
+        Topic level
+        <select id="skill-level">
+          <option value="unknown">Not sure yet</option>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </label>
+      <label>
+        Interests
+        <input id="interests" type="text" placeholder="quantum mechanics, AI apps, design">
+      </label>
+      <label class="check-row">
+        <input id="community-visible" type="checkbox">
+        <span>Allow opt-in community matching for this profile</span>
+      </label>
+      <p class="privacy-note">Prototype data is stored locally. Community visibility must stay opt-in before any server sync or public matching.</p>
+      <button id="save-profile">Save profile</button>
     </section>
 
     <section class="actions">
@@ -37,6 +59,7 @@
     <section class="card">
       <h2>Prompt preview</h2>
       <pre id="prompt">Choose an action.</pre>
+      <button id="copy-prompt" class="secondary">Copy prompt</button>
     </section>
   </main>
 
