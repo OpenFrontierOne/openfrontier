@@ -52,4 +52,19 @@ assert.match(core.buildPrompt("communities", pageContext, publicProfile), /opted
 assert.match(core.buildNextActions(pageContext, privateProfile), /Next actions for FreeQuantumStore/);
 assert.match(core.buildPrompt("explain", { active: false }, privateProfile), /inactive/);
 
+const syncPayload = core.buildSyncPayload(pageContext, privateProfile, [{
+  capturedAt: "2026-06-10T00:00:00.000Z",
+  url: pageContext.url,
+  hostname: pageContext.hostname,
+  pathname: "/gates",
+  title: pageContext.title,
+  store: pageContext.store,
+  headings: pageContext.headings
+}]);
+
+assert.equal(syncPayload.schemaVersion, "0.1");
+assert.equal(syncPayload.profile.communityVisible, false);
+assert.equal(syncPayload.currentContext.store.label, "FreeQuantumStore");
+assert.equal(syncPayload.history.length, 1);
+
 console.log("OFO Copilot core tests passed.");

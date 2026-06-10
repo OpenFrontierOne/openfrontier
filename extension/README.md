@@ -14,6 +14,7 @@ The extension is scoped to OFO-owned platforms and stores. It should not monitor
 - Testable core recommendation and prompt logic in `src/copilot-core.js`.
 - Local profile and goals storage.
 - Local activity history with export/delete controls.
+- Signed-in account placeholder and sync payload preview.
 - Explicit opt-in checkbox before community matching can treat the profile as visible.
 - Prompt helpers for:
   - explain this page
@@ -37,7 +38,7 @@ The manifest should only include OFO-owned domains. Add new host permissions onl
 ## Next build tasks
 
 - Add OFO account sign-in.
-- Replace prompt previews with real copilot API calls.
+- Replace sync preview with real copilot API calls after OFO account backend is ready.
 - Add visible memory controls.
 - Add opt-in community profile and matching.
 - Add store-owned domain registry generated from OFO metadata.

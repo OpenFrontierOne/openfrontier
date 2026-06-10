@@ -153,11 +153,44 @@ globalThis.OFO_COPILOT_CORE = (() => {
     ].join("\n");
   }
 
+  function buildSyncPayload(context = {}, profile = {}, history = []) {
+    const normalized = normalizeProfile(profile);
+    return {
+      schemaVersion: "0.1",
+      source: "ofo-copilot-extension",
+      profile: {
+        goal: normalized.goal,
+        skillLevel: normalized.skillLevel,
+        interests: normalized.interests,
+        communityVisible: normalized.communityVisible
+      },
+      currentContext: context.active ? {
+        url: context.url,
+        hostname: context.hostname,
+        pathname: context.pathname,
+        title: context.title,
+        description: context.description,
+        store: context.store,
+        headings: context.headings || []
+      } : null,
+      history: history.slice(0, 25).map((item) => ({
+        capturedAt: item.capturedAt,
+        url: item.url,
+        hostname: item.hostname,
+        pathname: item.pathname,
+        title: item.title,
+        store: item.store,
+        headings: item.headings || []
+      }))
+    };
+  }
+
   return {
     buildCommunityRecommendations,
     buildCrashCoursePlan,
     buildNextActions,
     buildPrompt,
+    buildSyncPayload,
     normalizeProfile
   };
 })();

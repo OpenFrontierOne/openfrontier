@@ -5,6 +5,10 @@ const state = {
     skillLevel: "unknown",
     interests: "",
     communityVisible: false
+  },
+  session: {
+    endpoint: "https://openfrontier.one/api/copilot",
+    tokenPresent: false
   }
 };
 
@@ -12,6 +16,9 @@ const statusEl = document.querySelector("#status");
 const titleEl = document.querySelector("#page-title");
 const urlEl = document.querySelector("#page-url");
 const storeContextEl = document.querySelector("#store-context");
+const accountStatusEl = document.querySelector("#account-status");
+const apiEndpointEl = document.querySelector("#api-endpoint");
+const accessTokenEl = document.querySelector("#access-token");
 const goalEl = document.querySelector("#goal");
 const skillLevelEl = document.querySelector("#skill-level");
 const interestsEl = document.querySelector("#interests");
@@ -45,18 +52,25 @@ async function getPageContext() {
 }
 
 async function loadProfile() {
-  const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoGoal", "ofoCopilotHistory"]);
+  const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoGoal", "ofoCopilotHistory", "ofoCopilotSession"]);
   state.profile = {
     goal: saved.ofoCopilotProfile?.goal || saved.ofoGoal || "",
     skillLevel: saved.ofoCopilotProfile?.skillLevel || "unknown",
     interests: saved.ofoCopilotProfile?.interests || "",
     communityVisible: Boolean(saved.ofoCopilotProfile?.communityVisible)
   };
+  state.session = {
+    endpoint: saved.ofoCopilotSession?.endpoint || "https://openfrontier.one/api/copilot",
+    tokenPresent: Boolean(saved.ofoCopilotSession?.accessToken)
+  };
 
   goalEl.value = state.profile.goal;
   skillLevelEl.value = state.profile.skillLevel;
   interestsEl.value = state.profile.interests;
   communityVisibleEl.checked = state.profile.communityVisible;
+  apiEndpointEl.value = state.session.endpoint;
+  accessTokenEl.value = "";
+  renderAccountStatus();
   renderMemorySummary(saved.ofoCopilotHistory || []);
 }
 
@@ -69,6 +83,30 @@ async function saveProfile() {
   };
 
   await chrome.storage.local.set({ ofoCopilotProfile: state.profile });
+}
+
+function renderAccountStatus() {
+  accountStatusEl.textContent = state.session.tokenPresent
+    ? `Signed-in placeholder configured for ${state.session.endpoint}. Sync is still preview-only.`
+    : "Signed out. Sync is not active.";
+}
+
+async function saveSession() {
+  const endpoint = apiEndpointEl.value.trim() || "https://openfrontier.one/api/copilot";
+  const accessToken = accessTokenEl.value.trim();
+  const existing = await chrome.storage.local.get(["ofoCopilotSession"]);
+  const session = {
+    endpoint,
+    accessToken: accessToken || existing.ofoCopilotSession?.accessToken || ""
+  };
+
+  await chrome.storage.local.set({ ofoCopilotSession: session });
+  state.session = {
+    endpoint,
+    tokenPresent: Boolean(session.accessToken)
+  };
+  accessTokenEl.value = "";
+  renderAccountStatus();
 }
 
 function renderContext() {
@@ -144,6 +182,10 @@ function buildPrompt(action) {
     return core.buildNextActions(state.context || {}, state.profile || {});
   }
 
+  if (action === "sync-preview") {
+    return "Loading sync payload...";
+  }
+
   return core.buildPrompt(action, state.context || {}, state.profile || {});
 }
 
@@ -159,12 +201,40 @@ document.querySelector("#save-profile").addEventListener("click", async () => {
   promptEl.textContent = "Profile saved locally.";
 });
 
+document.querySelector("#save-session").addEventListener("click", async () => {
+  await saveSession();
+  promptEl.textContent = "Session placeholder saved locally. No network request was sent.";
+});
+
+document.querySelector("#clear-session").addEventListener("click", async () => {
+  await chrome.storage.local.remove(["ofoCopilotSession"]);
+  state.session = {
+    endpoint: "https://openfrontier.one/api/copilot",
+    tokenPresent: false
+  };
+  apiEndpointEl.value = state.session.endpoint;
+  accessTokenEl.value = "";
+  renderAccountStatus();
+  promptEl.textContent = "Session placeholder cleared.";
+});
+
 document.querySelectorAll("[data-action]").forEach((button) => {
   button.addEventListener("click", async () => {
     await saveProfile();
     state.context = await getPageContext();
     renderContext();
     await rememberContext();
+
+    if (button.dataset.action === "sync-preview") {
+      const saved = await chrome.storage.local.get(["ofoCopilotHistory"]);
+      promptEl.textContent = JSON.stringify(core.buildSyncPayload(
+        state.context || {},
+        state.profile || {},
+        saved.ofoCopilotHistory || []
+      ), null, 2);
+      return;
+    }
+
     promptEl.textContent = buildPrompt(button.dataset.action);
   });
 });
@@ -178,9 +248,13 @@ document.querySelector("#copy-prompt").addEventListener("click", async () => {
 });
 
 document.querySelector("#export-memory").addEventListener("click", async () => {
-  const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoCopilotHistory"]);
+  const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoCopilotHistory", "ofoCopilotSession"]);
   promptEl.textContent = JSON.stringify({
     profile: saved.ofoCopilotProfile || null,
+    session: saved.ofoCopilotSession ? {
+      endpoint: saved.ofoCopilotSession.endpoint,
+      tokenPresent: Boolean(saved.ofoCopilotSession.accessToken)
+    } : null,
     history: saved.ofoCopilotHistory || []
   }, null, 2);
 });
@@ -190,12 +264,16 @@ document.querySelectorAll("[data-tab]").forEach((button) => {
     document.querySelectorAll("[data-tab]").forEach((tab) => tab.classList.remove("active"));
     button.classList.add("active");
 
-    const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoCopilotHistory"]);
+    const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoCopilotHistory", "ofoCopilotSession"]);
     if (button.dataset.tab === "history") {
       promptEl.textContent = renderHistory(saved.ofoCopilotHistory || []);
     } else if (button.dataset.tab === "raw") {
       promptEl.textContent = JSON.stringify({
         profile: saved.ofoCopilotProfile || null,
+        session: saved.ofoCopilotSession ? {
+          endpoint: saved.ofoCopilotSession.endpoint,
+          tokenPresent: Boolean(saved.ofoCopilotSession.accessToken)
+        } : null,
         context: state.context || null,
         history: saved.ofoCopilotHistory || []
       }, null, 2);
@@ -206,7 +284,7 @@ document.querySelectorAll("[data-tab]").forEach((button) => {
 });
 
 document.querySelector("#delete-memory").addEventListener("click", async () => {
-  await chrome.storage.local.remove(["ofoCopilotProfile", "ofoGoal", "ofoCopilotHistory"]);
+  await chrome.storage.local.remove(["ofoCopilotProfile", "ofoGoal", "ofoCopilotHistory", "ofoCopilotSession"]);
   state.profile = {
     goal: "",
     skillLevel: "unknown",
@@ -217,6 +295,13 @@ document.querySelector("#delete-memory").addEventListener("click", async () => {
   skillLevelEl.value = "unknown";
   interestsEl.value = "";
   communityVisibleEl.checked = false;
+  state.session = {
+    endpoint: "https://openfrontier.one/api/copilot",
+    tokenPresent: false
+  };
+  apiEndpointEl.value = state.session.endpoint;
+  accessTokenEl.value = "";
+  renderAccountStatus();
   renderMemorySummary([]);
   promptEl.textContent = "Local OFO Copilot memory deleted.";
 });

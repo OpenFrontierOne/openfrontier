@@ -29,6 +29,24 @@
     </section>
 
     <section class="card">
+      <h2>OFO account</h2>
+      <p id="account-status" class="muted">Signed out. Sync is not active.</p>
+      <label>
+        API endpoint
+        <input id="api-endpoint" type="url" value="https://openfrontier.one/api/copilot">
+      </label>
+      <label>
+        Access token placeholder
+        <input id="access-token" type="password" placeholder="Paste future OFO token">
+      </label>
+      <div class="split-actions">
+        <button id="save-session" class="secondary">Save session</button>
+        <button id="clear-session" class="secondary">Clear session</button>
+      </div>
+      <p class="privacy-note">Prototype only: no account requests are sent yet. The payload preview shows what would be synced after explicit sign-in.</p>
+    </section>
+
+    <section class="card">
       <h2>Your learning profile</h2>
       <label>
         Topic level
@@ -65,6 +83,7 @@
       <button data-action="course">Create crash course</button>
       <button data-action="communities">Find relevant communities</button>
       <button data-action="next">Suggest next actions</button>
+      <button data-action="sync-preview">Preview sync payload</button>
     </section>
 
     <section class="card">

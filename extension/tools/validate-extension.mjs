@@ -60,13 +60,19 @@ for (const requiredId of ["export-memory", "delete-memory", "memory-summary", "s
   }
 }
 
+for (const requiredId of ["account-status", "api-endpoint", "access-token", "save-session", "clear-session"]) {
+  if (!sidepanel.includes(`id="${requiredId}"`)) {
+    errors.push(`Side panel is missing #${requiredId}.`);
+  }
+}
+
 for (const requiredScript of ["copilot-core.js", "sidepanel.js"]) {
   if (!sidepanel.includes(`src="${requiredScript}"`)) {
     errors.push(`Side panel is missing ${requiredScript}.`);
   }
 }
 
-for (const requiredAction of ["explain", "course", "communities", "next"]) {
+for (const requiredAction of ["explain", "course", "communities", "next", "sync-preview"]) {
   if (!sidepanel.includes(`data-action="${requiredAction}"`)) {
     errors.push(`Side panel is missing ${requiredAction} action.`);
   }
