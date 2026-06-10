@@ -45,7 +45,9 @@
         "https://freeagentstore.online/*",
         "https://*.freeagentstore.online/*",
         "https://proagentstore.online/*",
-        "https://*.proagentstore.online/*"
+        "https://*.proagentstore.online/*",
+        "https://freeideastore.serge-the-dev.workers.dev/*",
+        "https://proideastore.serge-the-dev.workers.dev/*"
       ],
       "js": ["src/domains.js", "src/content.js"],
       "run_at": "document_idle"
@@ -86,6 +88,8 @@
     "https://*.freeagentstore.online/*",
     "https://proagentstore.online/*",
     "https://*.proagentstore.online/*",
+    "https://freeideastore.serge-the-dev.workers.dev/*",
+    "https://proideastore.serge-the-dev.workers.dev/*",
     "https://api.freeappstore.online/*"
   ],
   "permissions": ["activeTab", "identity", "sidePanel", "storage"],

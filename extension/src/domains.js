@@ -8,7 +8,9 @@ globalThis.OFO_COPILOT_DOMAINS = {
     "freewebstore.online",
     "prowebstore.online",
     "freeagentstore.online",
-    "proagentstore.online"
+    "proagentstore.online",
+    "freeideastore.serge-the-dev.workers.dev",
+    "proideastore.serge-the-dev.workers.dev"
   ],
   pagesHosts: [
     "openfrontier.pages.dev",
@@ -38,6 +40,8 @@ globalThis.OFO_COPILOT_DOMAINS = {
     "prowebstore.online": { label: "ProWebStore", category: "websites", community: "CMS builders" },
     "freeagentstore.online": { label: "FreeAgentStore", category: "agents", community: "agent builders" },
     "proagentstore.online": { label: "ProAgentStore", category: "agents", community: "pro agent builders" },
+    "freeideastore.serge-the-dev.workers.dev": { label: "FreeIdeaStore", category: "ideas", community: "idea contributors" },
+    "proideastore.serge-the-dev.workers.dev": { label: "ProIdeaStore", category: "ideas", community: "idea diligence contributors" },
     "freequantumstore.pages.dev": { label: "FreeQuantumStore", category: "quantum", community: "quantum learners" },
     "freecryptostore.pages.dev": { label: "FreeCryptoStore", category: "crypto", community: "crypto systems learners" },
     "freechipstore.pages.dev": { label: "FreeChipStore", category: "chip design", community: "hardware learners" },

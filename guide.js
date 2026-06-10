@@ -215,6 +215,20 @@
       status: "Production"
     },
     {
+      id: "validate-idea",
+      title: "Validate and mature an idea",
+      icon: "IDEA",
+      audiences: ["developer", "student", "career", "business", "creator", "curious"],
+      goals: ["idea", "research", "build", "publish"],
+      keywords: "idea startup validate research critique evidence pivot dossier opportunity market prototype investor",
+      summary: "FreeIdeaStore captures early ideas, critique, evidence, pivots, and support signals before the best candidates graduate to ProIdeaStore dossiers.",
+      outcome: "A clearer idea with evidence, risks, next steps, and an explicit decision to build, park, pivot, or promote.",
+      steps: ["Create or open the idea", "Collect critique and evidence", "Promote only strong candidates into a ProIdeaStore dossier"],
+      primary: { label: "Open FreeIdeaStore", url: "https://freeideastore.serge-the-dev.workers.dev" },
+      secondary: [{ label: "Review ProIdeaStore dossiers", url: "https://proideastore.serge-the-dev.workers.dev" }],
+      status: "Beta"
+    },
+    {
       id: "developer-tools",
       title: "Solve a development task quickly",
       icon: "DEV",

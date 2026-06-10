@@ -36,6 +36,10 @@ if (hostPermissions.some((host) => host.includes("*.pages.dev"))) {
   errors.push("Broad *.pages.dev host permission is not allowed.");
 }
 
+if (hostPermissions.some((host) => host.includes("*.workers.dev"))) {
+  errors.push("Broad *.workers.dev host permission is not allowed.");
+}
+
 for (const forbidden of ["<all_urls>", "http://*/*", "https://*/*"]) {
   if (hostPermissions.includes(forbidden) || contentMatches.includes(forbidden)) {
     errors.push(`Forbidden broad permission: ${forbidden}`);
@@ -96,9 +100,24 @@ for (const requiredAction of ["explain", "course", "communities", "next", "sync-
   }
 }
 
-for (const requiredHost of ["openfrontier.one", "freeappstore.online", "freequantumstore.pages.dev"]) {
+for (const requiredHost of [
+  "openfrontier.one",
+  "freeappstore.online",
+  "freequantumstore.pages.dev",
+  "freeideastore.serge-the-dev.workers.dev",
+  "proideastore.serge-the-dev.workers.dev"
+]) {
   if (!domainsSource.includes(`"${requiredHost}"`)) {
     errors.push(`Domain registry is missing ${requiredHost}.`);
+  }
+}
+
+for (const requiredHostPermission of [
+  "https://freeideastore.serge-the-dev.workers.dev/*",
+  "https://proideastore.serge-the-dev.workers.dev/*"
+]) {
+  if (!hostPermissions.includes(requiredHostPermission) || !contentMatches.includes(requiredHostPermission)) {
+    errors.push(`Manifest is missing exact idea-store permission: ${requiredHostPermission}`);
   }
 }
 
