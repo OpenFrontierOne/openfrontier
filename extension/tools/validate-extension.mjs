@@ -59,6 +59,18 @@ for (const requiredId of ["export-memory", "delete-memory", "memory-summary", "s
   }
 }
 
+for (const requiredScript of ["copilot-core.js", "sidepanel.js"]) {
+  if (!sidepanel.includes(`src="${requiredScript}"`)) {
+    errors.push(`Side panel is missing ${requiredScript}.`);
+  }
+}
+
+for (const requiredAction of ["explain", "course", "communities", "next"]) {
+  if (!sidepanel.includes(`data-action="${requiredAction}"`)) {
+    errors.push(`Side panel is missing ${requiredAction} action.`);
+  }
+}
+
 for (const requiredHost of ["openfrontier.one", "freeappstore.online", "freequantumstore.pages.dev"]) {
   if (!domainsSource.includes(`"${requiredHost}"`)) {
     errors.push(`Domain registry is missing ${requiredHost}.`);

@@ -179,6 +179,28 @@ button:hover {
   gap: 0.5rem;
 }
 
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.35rem;
+  margin-bottom: 0.7rem;
+}
+
+button.tab {
+  min-height: 32px;
+  padding: 0.38rem 0.45rem;
+  border-color: var(--line);
+  color: var(--muted);
+  background: var(--surface-2);
+  font-size: 0.72rem;
+}
+
+button.tab.active {
+  border-color: #5b457e;
+  color: var(--text);
+  background: rgba(139, 92, 246, 0.18);
+}
+
 .split-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -194,7 +216,9 @@ button.danger {
 
 pre {
   min-height: 120px;
+  max-height: 420px;
   margin: 0;
+  overflow: auto;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   color: #d8d1e6;

@@ -24,6 +24,10 @@ jobs:
           node-version: "22"
       - run: node extension/tools/validate-extension.mjs
       - run: node --check extension/src/background.js
+      - run: node --check extension/src/copilot-core.js
+      - run: node --check extension/src/domains.js
       - run: node --check extension/src/content.js
       - run: node --check extension/src/sidepanel.js
       - run: node --check extension/tools/validate-extension.mjs
+      - run: node --check extension/tools/test-core.mjs
+      - run: node extension/tools/test-core.mjs

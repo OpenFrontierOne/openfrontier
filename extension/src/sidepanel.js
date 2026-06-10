@@ -18,6 +18,7 @@ const interestsEl = document.querySelector("#interests");
 const communityVisibleEl = document.querySelector("#community-visible");
 const memorySummaryEl = document.querySelector("#memory-summary");
 const promptEl = document.querySelector("#prompt");
+const core = globalThis.OFO_COPILOT_CORE;
 
 async function getActiveTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -99,6 +100,19 @@ function renderMemorySummary(history) {
   memorySummaryEl.textContent = `${history.length} local context snapshots. Latest: ${latest.store?.label || latest.hostname} · ${latest.title || "Untitled"}`;
 }
 
+function renderHistory(history) {
+  if (!history.length) {
+    return "No local history yet.";
+  }
+
+  return history.map((item, index) => [
+    `${index + 1}. ${item.store?.label || item.hostname || "OFO page"}`,
+    `   ${item.title || "Untitled"}`,
+    `   ${item.url}`,
+    `   Captured: ${item.capturedAt}`
+  ].join("\n")).join("\n\n");
+}
+
 async function rememberContext() {
   if (!state.context?.active) {
     return;
@@ -125,104 +139,12 @@ async function rememberContext() {
   renderMemorySummary(nextHistory);
 }
 
-function buildCrashCoursePlan() {
-  const context = state.context || {};
-  const profile = state.profile || {};
-  const goal = profile.goal || "Learn the current topic";
-  const level = profile.skillLevel || "unknown";
-  const store = context.store?.label || "the current OFO store";
-  const topic = profile.interests || context.store?.category || context.title || "this topic";
-
-  return [
-    `Crash course starter plan: ${goal}`,
-    "",
-    `Context: ${store}`,
-    `Starting level: ${level}`,
-    `Topic focus: ${topic}`,
-    "",
-    "1. Calibrate",
-    "- Ask what the user already knows.",
-    "- Identify vocabulary gaps.",
-    "- Pick one concrete outcome for this session.",
-    "",
-    "2. Explain the core idea",
-    `- Give a beginner-safe explanation tied to ${store}.`,
-    "- Define 5-8 key terms.",
-    "- Show one small example before using a tool.",
-    "",
-    "3. Practice in OFO",
-    "- Open the most relevant simulation or tool.",
-    "- Try one guided input.",
-    "- Ask the user to predict the result before running it.",
-    "",
-    "4. Check understanding",
-    "- Ask 3 short questions.",
-    "- If the user misses one, explain that concept again with a simpler example.",
-    "",
-    "5. Connect",
-    "- Recommend the relevant OFO community.",
-    "- If profile visibility is not enabled, keep this as private recommendations only."
-  ].join("\n");
-}
-
 function buildPrompt(action) {
-  const context = state.context || {};
-  const profile = state.profile || {};
-  const goal = profile.goal || "No saved goal yet.";
-  const skillLevel = profile.skillLevel || "unknown";
-  const interests = profile.interests || "No saved interests.";
-  const communityVisibility = profile.communityVisible
-    ? "User opted into community matching for this local profile."
-    : "User has not opted into profile visibility. Recommend communities only; do not expose the user or draft outbound messages as if consent exists.";
-  const headings = context.headings?.length ? context.headings.join("; ") : "No headings captured.";
-
-  if (!context.active) {
-    return "OFO Copilot is inactive on this site. Open an OFO-owned store or platform first.";
+  if (action === "next") {
+    return core.buildNextActions(state.context || {}, state.profile || {});
   }
 
-  if (action === "explain") {
-    return [
-      "Explain this OFO page to the user.",
-      `User goal: ${goal}`,
-      `User level: ${skillLevel}`,
-      `User interests: ${interests}`,
-      `Page: ${context.title}`,
-      `URL: ${context.url}`,
-      `Description: ${context.description || "None"}`,
-      `Canonical: ${context.canonical || "None"}`,
-      `Selected text: ${context.selectedText || "None"}`,
-      `Headings: ${headings}`,
-      "Answer with: what this is, why it matters, and the next useful action."
-    ].join("\n");
-  }
-
-  if (action === "course") {
-    return [
-      buildCrashCoursePlan(),
-      "",
-      "Prompt for AI expansion:",
-      "Create a tailored crash course for the user.",
-      `User goal: ${goal}`,
-      `User level: ${skillLevel}`,
-      `User interests: ${interests}`,
-      `Current OFO context: ${context.title} (${context.url})`,
-      "Include: calibration questions, beginner path, glossary, exercises, OFO tools to use, and progress checks."
-    ].join("\n");
-  }
-
-  if (action === "communities") {
-    return [
-      "Recommend OFO communities and people-matching paths.",
-      `User goal: ${goal}`,
-      `User level: ${skillLevel}`,
-      `User interests: ${interests}`,
-      `Visibility: ${communityVisibility}`,
-      `Current OFO context: ${context.title} (${context.url})`,
-      "Include: peer groups, mentors, contributors, reviewers, professionals, and what the user must opt into before being visible."
-    ].join("\n");
-  }
-
-  return "Choose an action.";
+  return core.buildPrompt(action, state.context || {}, state.profile || {});
 }
 
 async function init() {
@@ -261,6 +183,26 @@ document.querySelector("#export-memory").addEventListener("click", async () => {
     profile: saved.ofoCopilotProfile || null,
     history: saved.ofoCopilotHistory || []
   }, null, 2);
+});
+
+document.querySelectorAll("[data-tab]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    document.querySelectorAll("[data-tab]").forEach((tab) => tab.classList.remove("active"));
+    button.classList.add("active");
+
+    const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoCopilotHistory"]);
+    if (button.dataset.tab === "history") {
+      promptEl.textContent = renderHistory(saved.ofoCopilotHistory || []);
+    } else if (button.dataset.tab === "raw") {
+      promptEl.textContent = JSON.stringify({
+        profile: saved.ofoCopilotProfile || null,
+        context: state.context || null,
+        history: saved.ofoCopilotHistory || []
+      }, null, 2);
+    } else {
+      promptEl.textContent = core.buildNextActions(state.context || {}, state.profile || {});
+    }
+  });
 });
 
 document.querySelector("#delete-memory").addEventListener("click", async () => {

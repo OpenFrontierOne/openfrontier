@@ -11,6 +11,7 @@ The extension is scoped to OFO-owned platforms and stores. It should not monitor
 - Content script limited to OFO/store host permissions.
 - Current page context extraction.
 - Store/domain registry shared by the content script and validator.
+- Testable core recommendation and prompt logic in `src/copilot-core.js`.
 - Local profile and goals storage.
 - Local activity history with export/delete controls.
 - Explicit opt-in checkbox before community matching can treat the profile as visible.
@@ -47,4 +48,5 @@ Run from this repository:
 
 ```sh
 node extension/tools/validate-extension.mjs
+node extension/tools/test-core.mjs
 ```

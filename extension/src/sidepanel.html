@@ -64,15 +64,22 @@
       <button data-action="explain">Explain this page</button>
       <button data-action="course">Create crash course</button>
       <button data-action="communities">Find relevant communities</button>
+      <button data-action="next">Suggest next actions</button>
     </section>
 
     <section class="card">
-      <h2>Prompt preview</h2>
+      <h2>Output</h2>
+      <div class="tabs" role="tablist" aria-label="Output views">
+        <button class="tab active" data-tab="output" type="button">Output</button>
+        <button class="tab" data-tab="history" type="button">History</button>
+        <button class="tab" data-tab="raw" type="button">Raw</button>
+      </div>
       <pre id="prompt">Choose an action.</pre>
       <button id="copy-prompt" class="secondary">Copy prompt</button>
     </section>
   </main>
 
+  <script src="copilot-core.js"></script>
   <script src="sidepanel.js"></script>
 </body>
 </html>
