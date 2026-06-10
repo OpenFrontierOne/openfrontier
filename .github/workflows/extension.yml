@@ -30,4 +30,10 @@ jobs:
       - run: node --check extension/src/sidepanel.js
       - run: node --check extension/tools/validate-extension.mjs
       - run: node --check extension/tools/test-core.mjs
+      - run: node --check extension/tools/pack-extension.mjs
       - run: node extension/tools/test-core.mjs
+      - run: node extension/tools/pack-extension.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ofo-copilot-extension
+          path: extension/dist/ofo-copilot-extension.zip

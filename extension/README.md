@@ -20,6 +20,7 @@ The extension is scoped to OFO-owned platforms and stores. It should not monitor
   - create a crash course
   - recommend communities
 - Local validation script for manifest permissions.
+- Reproducible zip packaging for review/test installs.
 
 ## Local install
 
@@ -50,3 +51,13 @@ Run from this repository:
 node extension/tools/validate-extension.mjs
 node extension/tools/test-core.mjs
 ```
+
+## Package
+
+Run from this repository:
+
+```sh
+node extension/tools/pack-extension.mjs
+```
+
+The zip is written to `extension/dist/ofo-copilot-extension.zip`. Generated package files are ignored by git.

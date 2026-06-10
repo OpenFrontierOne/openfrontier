@@ -10,6 +10,7 @@ const sidepanelPath = path.join(extensionDir, "src", "sidepanel.html");
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 const sidepanel = fs.readFileSync(sidepanelPath, "utf8");
 const domainsSource = fs.readFileSync(path.join(extensionDir, "src", "domains.js"), "utf8");
+const readme = fs.readFileSync(path.join(extensionDir, "README.md"), "utf8");
 
 const errors = [];
 const hostPermissions = manifest.host_permissions || [];
@@ -74,6 +75,12 @@ for (const requiredAction of ["explain", "course", "communities", "next"]) {
 for (const requiredHost of ["openfrontier.one", "freeappstore.online", "freequantumstore.pages.dev"]) {
   if (!domainsSource.includes(`"${requiredHost}"`)) {
     errors.push(`Domain registry is missing ${requiredHost}.`);
+  }
+}
+
+for (const requiredCopy of ["should not monitor the wider browser", "OFO-owned domains"]) {
+  if (!readme.includes(requiredCopy)) {
+    errors.push(`README is missing privacy boundary copy: ${requiredCopy}`);
   }
 }
 
