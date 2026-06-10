@@ -179,6 +179,19 @@ button:hover {
   gap: 0.5rem;
 }
 
+.split-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+button.danger {
+  margin-top: 0.7rem;
+  border-color: #6b2433;
+  color: #ffe4e6;
+  background: #3b111a;
+}
+
 pre {
   min-height: 120px;
   margin: 0;

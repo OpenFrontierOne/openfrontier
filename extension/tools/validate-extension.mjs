@@ -9,6 +9,7 @@ const sidepanelPath = path.join(extensionDir, "src", "sidepanel.html");
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 const sidepanel = fs.readFileSync(sidepanelPath, "utf8");
+const domainsSource = fs.readFileSync(path.join(extensionDir, "src", "domains.js"), "utf8");
 
 const errors = [];
 const hostPermissions = manifest.host_permissions || [];
@@ -22,8 +23,18 @@ if (!manifest.permissions?.includes("sidePanel")) {
   errors.push("sidePanel permission is required for the current UI.");
 }
 
+if (!manifest.content_scripts?.[0]?.js?.includes("src/domains.js")) {
+  errors.push("src/domains.js must load before src/content.js.");
+}
+
 if (hostPermissions.some((host) => host.includes("*.pages.dev"))) {
   errors.push("Broad *.pages.dev host permission is not allowed.");
+}
+
+for (const forbidden of ["<all_urls>", "http://*/*", "https://*/*"]) {
+  if (hostPermissions.includes(forbidden) || contentMatches.includes(forbidden)) {
+    errors.push(`Forbidden broad permission: ${forbidden}`);
+  }
 }
 
 const duplicateHosts = hostPermissions.filter((host, index) => hostPermissions.indexOf(host) !== index);
@@ -39,6 +50,18 @@ if (missingHostPermissions.length) {
 for (const requiredId of ["goal", "skill-level", "interests", "community-visible", "copy-prompt"]) {
   if (!sidepanel.includes(`id="${requiredId}"`)) {
     errors.push(`Side panel is missing #${requiredId}.`);
+  }
+}
+
+for (const requiredId of ["export-memory", "delete-memory", "memory-summary", "store-context"]) {
+  if (!sidepanel.includes(`id="${requiredId}"`)) {
+    errors.push(`Side panel is missing #${requiredId}.`);
+  }
+}
+
+for (const requiredHost of ["openfrontier.one", "freeappstore.online", "freequantumstore.pages.dev"]) {
+  if (!domainsSource.includes(`"${requiredHost}"`)) {
+    errors.push(`Domain registry is missing ${requiredHost}.`);
   }
 }
 

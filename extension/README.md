@@ -10,7 +10,9 @@ The extension is scoped to OFO-owned platforms and stores. It should not monitor
 - Chrome/Edge side panel.
 - Content script limited to OFO/store host permissions.
 - Current page context extraction.
+- Store/domain registry shared by the content script and validator.
 - Local profile and goals storage.
+- Local activity history with export/delete controls.
 - Explicit opt-in checkbox before community matching can treat the profile as visible.
 - Prompt helpers for:
   - explain this page
@@ -37,6 +39,7 @@ The manifest should only include OFO-owned domains. Add new host permissions onl
 - Add visible memory controls.
 - Add opt-in community profile and matching.
 - Add store-owned domain registry generated from OFO metadata.
+- Package for Chrome Web Store review after account sign-in and privacy copy are complete.
 
 ## Validate
 

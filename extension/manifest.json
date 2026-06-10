@@ -47,7 +47,7 @@
         "https://proagentstore.online/*",
         "https://*.proagentstore.online/*"
       ],
-      "js": ["src/content.js"],
+      "js": ["src/domains.js", "src/content.js"],
       "run_at": "document_idle"
     }
   ],
