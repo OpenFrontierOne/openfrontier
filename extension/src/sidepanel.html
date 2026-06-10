@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OFO Copilot</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <header class="header">
+    <div>
+      <p class="eyebrow">Open Frontier One</p>
+      <h1>OFO Copilot</h1>
+    </div>
+    <span id="status" class="status">Checking</span>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Current context</h2>
+      <p id="page-title" class="muted">No OFO page detected yet.</p>
+      <p id="page-url" class="url"></p>
+    </section>
+
+    <section class="card">
+      <h2>Your goal</h2>
+      <textarea id="goal" rows="4" placeholder="Example: I want a crash course in quantum mechanics so I can use the simulations."></textarea>
+      <button id="save-goal">Save goal</button>
+    </section>
+
+    <section class="actions">
+      <button data-action="explain">Explain this page</button>
+      <button data-action="course">Create crash course</button>
+      <button data-action="communities">Find relevant communities</button>
+    </section>
+
+    <section class="card">
+      <h2>Prompt preview</h2>
+      <pre id="prompt">Choose an action.</pre>
+    </section>
+  </main>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

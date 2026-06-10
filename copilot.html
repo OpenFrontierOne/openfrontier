@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OFO Copilot - Open Frontier One</title>
+  <meta name="description" content="OFO Copilot is the planned browser extension that helps users learn, build, publish, and connect across Open Frontier One stores.">
+  <meta property="og:title" content="OFO Copilot">
+  <meta property="og:description" content="A browser extension companion for learning, doing, and connecting across OFO-owned platforms.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://openfrontier.one/copilot">
+  <link rel="canonical" href="https://openfrontier.one/copilot">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="brand" href="/"><img class="brand-mark" src="/logo-mark.svg" alt=""><span>Open Frontier <span class="brand-one">One</span></span></a>
+    <div class="nav-links">
+      <a href="/about">About</a>
+      <a href="/guide">Guide</a>
+      <a href="/copilot">Copilot</a>
+      <a href="/faq">FAQ</a>
+      <a href="https://docs.openfrontier.one">Documentation</a>
+      <a class="nav-cta" href="/contribute">Contribute</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+  <header class="page-hero container">
+    <span class="eyebrow">OFO platform companion</span>
+    <h1>Learn, build, publish, and connect across OFO.</h1>
+    <p class="lede">OFO Copilot is the planned browser extension for Open Frontier One. It helps users understand the current store, create crash courses, choose next steps, and find relevant communities without monitoring the wider browser.</p>
+    <div class="actions">
+      <a class="button primary" href="https://docs.openfrontier.one/product/ofo-copilot-extension/">Read the product spec</a>
+      <a class="button" href="https://github.com/OpenFrontierOne/openfrontier/tree/main/extension">View extension scaffold</a>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Scope</span>
+          <h2>Active only on OFO-owned platforms.</h2>
+          <p class="section-intro">The extension is designed as an OFO companion, not a general browser monitor. It should run with privileged context only on domains and store properties operated by Open Frontier One.</p>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>Crash courses</h3><p>Turn a broad topic into a tailored learning path with calibration, glossary, exercises, simulations, and checkpoints.</p></div>
+        <div class="card"><h3>Contextual coaching</h3><p>Explain the current store, tool, page, result, or form and suggest the next useful action.</p></div>
+        <div class="card"><h3>Community matching</h3><p>Recommend relevant communities, peers, mentors, contributors, reviewers, and professionals with explicit user consent.</p></div>
+        <div class="card"><h3>Goal navigation</h3><p>Convert outcomes like “build an AI app” or “publish a website” into steps across the right OFO stores.</p></div>
+        <div class="card"><h3>Personal memory</h3><p>Remember user goals, skill level, preferences, and projects in a visible, editable, deletable profile.</p></div>
+        <div class="card"><h3>Publishing review</h3><p>Check metadata, broken links, accessibility basics, copy quality, and store-specific requirements before launch.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <span class="eyebrow">MVP</span>
+      <h2>Start with a side panel and page context.</h2>
+      <p class="lede">The first build should support OFO-only host permissions, current-page context detection, local goals, crash-course prompts, explain-this-page prompts, and community recommendation placeholders. Account sync and deeper matching can come after the extension boundary is proven.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><h3>Open Frontier</h3><p>Browser-based tools and interactive knowledge, built in the open.</p></div>
+      <div><h4>Project</h4><a href="/about">About</a><a href="/stakeholders">Stakeholder brief</a><a href="https://docs.openfrontier.one">Documentation</a></div>
+      <div><h4>Participate</h4><a href="/contribute">Contribute</a><a href="https://github.com/OpenFrontierOne">GitHub</a><a href="/faq">FAQ</a></div>
+      <div><h4>Policies</h4><a href="/privacy">Privacy and data</a><a href="/faq#licensing">Licensing</a><a href="/faq#security">Security</a></div>
+    </div>
+    <div class="footer-note">OFO Copilot concept snapshot updated June 10, 2026.</div>
+  </div>
+</footer>
+</body>
+</html>
