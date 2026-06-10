@@ -14,7 +14,7 @@ The extension is scoped to OFO-owned platforms and stores. It should not monitor
 - Testable core recommendation and prompt logic in `src/copilot-core.js`.
 - Local profile and goals storage.
 - Local activity history with export/delete controls.
-- Real OFO/FAS GitHub sign-in via Chrome identity web auth flow.
+- Real OFO/FAS Google and GitHub sign-in via Chrome identity web auth flow.
 - Local-only OpenAI and Claude API key storage.
 - Separate controls for deleting profile/history versus all local extension data.
 - Explicit opt-in checkbox before community matching can treat the profile as visible.
@@ -39,9 +39,10 @@ The manifest should only include OFO-owned domains. Add new host permissions onl
 
 ## Sign-in
 
-OFO sign-in uses the existing FAS GitHub auth service:
+OFO sign-in uses the existing FAS auth service:
 
 ```text
+https://api.freeappstore.online/v1/auth/google/start
 https://api.freeappstore.online/v1/auth/github/start
 ```
 

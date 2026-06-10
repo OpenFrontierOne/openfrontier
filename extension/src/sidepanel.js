@@ -192,10 +192,15 @@ function launchWebAuthFlow(details) {
   });
 }
 
-async function signIn() {
+function getAuthProviderLabel(provider) {
+  return provider === "google" ? "Google" : "GitHub";
+}
+
+async function signIn(provider) {
   const authApi = normalizeAuthApi(authApiEl.value);
   const returnTo = chrome.identity.getRedirectURL("ofo-copilot");
-  const authUrl = new URL(`${authApi}/v1/auth/github/start`);
+  const authProvider = provider === "google" ? "google" : "github";
+  const authUrl = new URL(`${authApi}/v1/auth/${authProvider}/start`);
   authUrl.searchParams.set("app_id", "ofo-copilot-extension");
   authUrl.searchParams.set("response_mode", "query");
   authUrl.searchParams.set("return_to", returnTo);
@@ -334,11 +339,22 @@ document.querySelector("#save-profile").addEventListener("click", async () => {
   promptEl.textContent = "Profile saved locally.";
 });
 
-document.querySelector("#sign-in").addEventListener("click", async () => {
+document.querySelector("#sign-in-github").addEventListener("click", async () => {
   promptEl.textContent = "Opening GitHub sign-in...";
   try {
-    await signIn();
-    promptEl.textContent = "Signed in to OFO.";
+    await signIn("github");
+    promptEl.textContent = "Signed in to OFO with GitHub.";
+  } catch (error) {
+    promptEl.textContent = `Sign-in failed: ${error.message}`;
+  }
+});
+
+document.querySelector("#sign-in-google").addEventListener("click", async () => {
+  const provider = "google";
+  promptEl.textContent = `Opening ${getAuthProviderLabel(provider)} sign-in...`;
+  try {
+    await signIn(provider);
+    promptEl.textContent = `Signed in to OFO with ${getAuthProviderLabel(provider)}.`;
   } catch (error) {
     promptEl.textContent = `Sign-in failed: ${error.message}`;
   }

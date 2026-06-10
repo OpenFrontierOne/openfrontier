@@ -68,7 +68,7 @@ if (!sidepanel.includes('id="delete-all-local"')) {
   errors.push("Side panel is missing #delete-all-local.");
 }
 
-for (const requiredId of ["account-status", "auth-api", "redirect-url", "sign-in", "clear-session"]) {
+for (const requiredId of ["account-status", "auth-api", "redirect-url", "sign-in-google", "sign-in-github", "clear-session"]) {
   if (!sidepanel.includes(`id="${requiredId}"`)) {
     errors.push(`Side panel is missing #${requiredId}.`);
   }
@@ -117,7 +117,7 @@ if (!sidepanel.includes("chrome.storage.local") || !sidepanel.includes("not incl
 }
 
 const sidepanelJs = fs.readFileSync(path.join(extensionDir, "src", "sidepanel.js"), "utf8");
-for (const requiredCode of ["launchWebAuthFlow", "getRedirectURL", "fas_session", "/v1/auth/me"]) {
+for (const requiredCode of ["launchWebAuthFlow", "getRedirectURL", "fas_session", "/v1/auth/me", "/v1/auth/${authProvider}/start"]) {
   if (!sidepanelJs.includes(requiredCode)) {
     errors.push(`Real sign-in implementation is missing ${requiredCode}.`);
   }
