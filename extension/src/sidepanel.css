@@ -216,6 +216,10 @@ button.danger {
   background: #3b111a;
 }
 
+.full-danger {
+  margin-top: 0.5rem;
+}
+
 pre {
   min-height: 120px;
   max-height: 420px;

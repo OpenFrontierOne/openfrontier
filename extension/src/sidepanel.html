@@ -32,18 +32,14 @@
       <h2>OFO account</h2>
       <p id="account-status" class="muted">Signed out. Sync is not active.</p>
       <label>
-        API endpoint
-        <input id="api-endpoint" type="url" value="https://openfrontier.one/api/copilot">
-      </label>
-      <label>
-        OFO access token
-        <input id="access-token" type="password" placeholder="Paste future OFO account token">
+        Auth API
+        <input id="auth-api" type="url" value="https://api.freeappstore.online">
       </label>
       <div class="split-actions">
-        <button id="save-session" class="secondary">Sign in locally</button>
+        <button id="sign-in" class="secondary">Sign in with GitHub</button>
         <button id="clear-session" class="secondary">Sign out</button>
       </div>
-      <p class="privacy-note">Prototype only: OFO sign-in is stored locally and no account requests are sent yet. The sync preview shows what would be synced after explicit sign-in.</p>
+      <p class="privacy-note">Uses the existing OFO/FAS GitHub auth service. The extension stores the returned session locally and verifies it with <code>/v1/auth/me</code>.</p>
     </section>
 
     <section class="card">
@@ -94,6 +90,7 @@
         <button id="export-memory" class="secondary">Export memory</button>
         <button id="delete-memory" class="danger">Delete memory</button>
       </div>
+      <button id="delete-all-local" class="danger full-danger">Delete all local data</button>
     </section>
 
     <section class="actions">

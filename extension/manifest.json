@@ -85,9 +85,10 @@
     "https://freeagentstore.online/*",
     "https://*.freeagentstore.online/*",
     "https://proagentstore.online/*",
-    "https://*.proagentstore.online/*"
+    "https://*.proagentstore.online/*",
+    "https://api.freeappstore.online/*"
   ],
-  "permissions": ["activeTab", "sidePanel", "storage"],
+  "permissions": ["activeTab", "identity", "sidePanel", "storage"],
   "side_panel": {
     "default_path": "src/sidepanel.html"
   }

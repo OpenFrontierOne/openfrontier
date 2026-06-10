@@ -14,8 +14,9 @@ The extension is scoped to OFO-owned platforms and stores. It should not monitor
 - Testable core recommendation and prompt logic in `src/copilot-core.js`.
 - Local profile and goals storage.
 - Local activity history with export/delete controls.
-- Signed-in account placeholder and sync payload preview.
+- Real OFO/FAS GitHub sign-in via Chrome identity web auth flow.
 - Local-only OpenAI and Claude API key storage.
+- Separate controls for deleting profile/history versus all local extension data.
 - Explicit opt-in checkbox before community matching can treat the profile as visible.
 - Prompt helpers for:
   - explain this page
@@ -39,7 +40,7 @@ The manifest should only include OFO-owned domains. Add new host permissions onl
 ## Next build tasks
 
 - Add OFO account sign-in.
-- Replace sync preview with real copilot API calls after OFO account backend is ready.
+- Replace sync preview with real copilot API calls after the OFO copilot backend is ready.
 - Use local OpenAI/Claude keys only after explicit user action; do not sync provider keys to OFO.
 - Add visible memory controls.
 - Add opt-in community profile and matching.

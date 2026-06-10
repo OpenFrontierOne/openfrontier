@@ -24,6 +24,10 @@ if (!manifest.permissions?.includes("sidePanel")) {
   errors.push("sidePanel permission is required for the current UI.");
 }
 
+if (!manifest.permissions?.includes("identity")) {
+  errors.push("identity permission is required for real sign-in.");
+}
+
 if (!manifest.content_scripts?.[0]?.js?.includes("src/domains.js")) {
   errors.push("src/domains.js must load before src/content.js.");
 }
@@ -60,10 +64,18 @@ for (const requiredId of ["export-memory", "delete-memory", "memory-summary", "s
   }
 }
 
-for (const requiredId of ["account-status", "api-endpoint", "access-token", "save-session", "clear-session"]) {
+if (!sidepanel.includes('id="delete-all-local"')) {
+  errors.push("Side panel is missing #delete-all-local.");
+}
+
+for (const requiredId of ["account-status", "auth-api", "sign-in", "clear-session"]) {
   if (!sidepanel.includes(`id="${requiredId}"`)) {
     errors.push(`Side panel is missing #${requiredId}.`);
   }
+}
+
+if (sidepanel.includes("access-token") || sidepanel.includes("Paste future OFO") || sidepanel.includes("Sign in locally")) {
+  errors.push("Side panel still contains local OFO token placeholder UI.");
 }
 
 for (const requiredId of ["provider-status", "openai-api-key", "anthropic-api-key", "save-provider-keys", "clear-provider-keys"]) {
@@ -90,6 +102,10 @@ for (const requiredHost of ["openfrontier.one", "freeappstore.online", "freequan
   }
 }
 
+if (!hostPermissions.includes("https://api.freeappstore.online/*")) {
+  errors.push("Missing host permission for shared OFO/FAS auth API.");
+}
+
 for (const requiredCopy of ["should not monitor the wider browser", "OFO-owned domains"]) {
   if (!readme.includes(requiredCopy)) {
     errors.push(`README is missing privacy boundary copy: ${requiredCopy}`);
@@ -98,6 +114,18 @@ for (const requiredCopy of ["should not monitor the wider browser", "OFO-owned d
 
 if (!sidepanel.includes("chrome.storage.local") || !sidepanel.includes("not included in sync payloads")) {
   errors.push("Side panel must state that provider keys are local and not included in sync payloads.");
+}
+
+const sidepanelJs = fs.readFileSync(path.join(extensionDir, "src", "sidepanel.js"), "utf8");
+for (const requiredCode of ["launchWebAuthFlow", "getRedirectURL", "fas_session", "/v1/auth/me"]) {
+  if (!sidepanelJs.includes(requiredCode)) {
+    errors.push(`Real sign-in implementation is missing ${requiredCode}.`);
+  }
+}
+for (const forbiddenExport of ["openaiApiKey:", "anthropicApiKey:", "accessToken: saved"]) {
+  if (sidepanelJs.includes(forbiddenExport)) {
+    errors.push(`Side panel may expose secret material: ${forbiddenExport}`);
+  }
 }
 
 if (errors.length) {
