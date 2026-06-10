@@ -9,6 +9,10 @@ const state = {
   session: {
     endpoint: "https://openfrontier.one/api/copilot",
     tokenPresent: false
+  },
+  providerKeys: {
+    openaiPresent: false,
+    anthropicPresent: false
   }
 };
 
@@ -17,8 +21,11 @@ const titleEl = document.querySelector("#page-title");
 const urlEl = document.querySelector("#page-url");
 const storeContextEl = document.querySelector("#store-context");
 const accountStatusEl = document.querySelector("#account-status");
+const providerStatusEl = document.querySelector("#provider-status");
 const apiEndpointEl = document.querySelector("#api-endpoint");
 const accessTokenEl = document.querySelector("#access-token");
+const openaiApiKeyEl = document.querySelector("#openai-api-key");
+const anthropicApiKeyEl = document.querySelector("#anthropic-api-key");
 const goalEl = document.querySelector("#goal");
 const skillLevelEl = document.querySelector("#skill-level");
 const interestsEl = document.querySelector("#interests");
@@ -52,7 +59,13 @@ async function getPageContext() {
 }
 
 async function loadProfile() {
-  const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoGoal", "ofoCopilotHistory", "ofoCopilotSession"]);
+  const saved = await chrome.storage.local.get([
+    "ofoCopilotProfile",
+    "ofoGoal",
+    "ofoCopilotHistory",
+    "ofoCopilotSession",
+    "ofoCopilotProviderKeys"
+  ]);
   state.profile = {
     goal: saved.ofoCopilotProfile?.goal || saved.ofoGoal || "",
     skillLevel: saved.ofoCopilotProfile?.skillLevel || "unknown",
@@ -63,6 +76,10 @@ async function loadProfile() {
     endpoint: saved.ofoCopilotSession?.endpoint || "https://openfrontier.one/api/copilot",
     tokenPresent: Boolean(saved.ofoCopilotSession?.accessToken)
   };
+  state.providerKeys = {
+    openaiPresent: Boolean(saved.ofoCopilotProviderKeys?.openaiApiKey),
+    anthropicPresent: Boolean(saved.ofoCopilotProviderKeys?.anthropicApiKey)
+  };
 
   goalEl.value = state.profile.goal;
   skillLevelEl.value = state.profile.skillLevel;
@@ -70,7 +87,10 @@ async function loadProfile() {
   communityVisibleEl.checked = state.profile.communityVisible;
   apiEndpointEl.value = state.session.endpoint;
   accessTokenEl.value = "";
+  openaiApiKeyEl.value = "";
+  anthropicApiKeyEl.value = "";
   renderAccountStatus();
+  renderProviderStatus();
   renderMemorySummary(saved.ofoCopilotHistory || []);
 }
 
@@ -87,8 +107,19 @@ async function saveProfile() {
 
 function renderAccountStatus() {
   accountStatusEl.textContent = state.session.tokenPresent
-    ? `Signed-in placeholder configured for ${state.session.endpoint}. Sync is still preview-only.`
+    ? `Signed in locally for ${state.session.endpoint}. Sync is still preview-only.`
     : "Signed out. Sync is not active.";
+}
+
+function renderProviderStatus() {
+  const enabled = [
+    state.providerKeys.openaiPresent ? "OpenAI" : "",
+    state.providerKeys.anthropicPresent ? "Claude" : ""
+  ].filter(Boolean);
+
+  providerStatusEl.textContent = enabled.length
+    ? `Local provider keys saved: ${enabled.join(", ")}.`
+    : "No local AI provider keys saved.";
 }
 
 async function saveSession() {
@@ -107,6 +138,25 @@ async function saveSession() {
   };
   accessTokenEl.value = "";
   renderAccountStatus();
+}
+
+async function saveProviderKeys() {
+  const existing = await chrome.storage.local.get(["ofoCopilotProviderKeys"]);
+  const openaiApiKey = openaiApiKeyEl.value.trim() || existing.ofoCopilotProviderKeys?.openaiApiKey || "";
+  const anthropicApiKey = anthropicApiKeyEl.value.trim() || existing.ofoCopilotProviderKeys?.anthropicApiKey || "";
+  const providerKeys = {
+    openaiApiKey,
+    anthropicApiKey
+  };
+
+  await chrome.storage.local.set({ ofoCopilotProviderKeys: providerKeys });
+  state.providerKeys = {
+    openaiPresent: Boolean(openaiApiKey),
+    anthropicPresent: Boolean(anthropicApiKey)
+  };
+  openaiApiKeyEl.value = "";
+  anthropicApiKeyEl.value = "";
+  renderProviderStatus();
 }
 
 function renderContext() {
@@ -218,6 +268,23 @@ document.querySelector("#clear-session").addEventListener("click", async () => {
   promptEl.textContent = "Session placeholder cleared.";
 });
 
+document.querySelector("#save-provider-keys").addEventListener("click", async () => {
+  await saveProviderKeys();
+  promptEl.textContent = "AI provider keys saved locally. They were not sent anywhere.";
+});
+
+document.querySelector("#clear-provider-keys").addEventListener("click", async () => {
+  await chrome.storage.local.remove(["ofoCopilotProviderKeys"]);
+  state.providerKeys = {
+    openaiPresent: false,
+    anthropicPresent: false
+  };
+  openaiApiKeyEl.value = "";
+  anthropicApiKeyEl.value = "";
+  renderProviderStatus();
+  promptEl.textContent = "Local AI provider keys cleared.";
+});
+
 document.querySelectorAll("[data-action]").forEach((button) => {
   button.addEventListener("click", async () => {
     await saveProfile();
@@ -248,12 +315,16 @@ document.querySelector("#copy-prompt").addEventListener("click", async () => {
 });
 
 document.querySelector("#export-memory").addEventListener("click", async () => {
-  const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoCopilotHistory", "ofoCopilotSession"]);
+  const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoCopilotHistory", "ofoCopilotSession", "ofoCopilotProviderKeys"]);
   promptEl.textContent = JSON.stringify({
     profile: saved.ofoCopilotProfile || null,
     session: saved.ofoCopilotSession ? {
       endpoint: saved.ofoCopilotSession.endpoint,
       tokenPresent: Boolean(saved.ofoCopilotSession.accessToken)
+    } : null,
+    providerKeys: saved.ofoCopilotProviderKeys ? {
+      openaiPresent: Boolean(saved.ofoCopilotProviderKeys.openaiApiKey),
+      anthropicPresent: Boolean(saved.ofoCopilotProviderKeys.anthropicApiKey)
     } : null,
     history: saved.ofoCopilotHistory || []
   }, null, 2);
@@ -264,7 +335,7 @@ document.querySelectorAll("[data-tab]").forEach((button) => {
     document.querySelectorAll("[data-tab]").forEach((tab) => tab.classList.remove("active"));
     button.classList.add("active");
 
-    const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoCopilotHistory", "ofoCopilotSession"]);
+    const saved = await chrome.storage.local.get(["ofoCopilotProfile", "ofoCopilotHistory", "ofoCopilotSession", "ofoCopilotProviderKeys"]);
     if (button.dataset.tab === "history") {
       promptEl.textContent = renderHistory(saved.ofoCopilotHistory || []);
     } else if (button.dataset.tab === "raw") {
@@ -273,6 +344,10 @@ document.querySelectorAll("[data-tab]").forEach((button) => {
         session: saved.ofoCopilotSession ? {
           endpoint: saved.ofoCopilotSession.endpoint,
           tokenPresent: Boolean(saved.ofoCopilotSession.accessToken)
+        } : null,
+        providerKeys: saved.ofoCopilotProviderKeys ? {
+          openaiPresent: Boolean(saved.ofoCopilotProviderKeys.openaiApiKey),
+          anthropicPresent: Boolean(saved.ofoCopilotProviderKeys.anthropicApiKey)
         } : null,
         context: state.context || null,
         history: saved.ofoCopilotHistory || []
@@ -284,7 +359,13 @@ document.querySelectorAll("[data-tab]").forEach((button) => {
 });
 
 document.querySelector("#delete-memory").addEventListener("click", async () => {
-  await chrome.storage.local.remove(["ofoCopilotProfile", "ofoGoal", "ofoCopilotHistory", "ofoCopilotSession"]);
+  await chrome.storage.local.remove([
+    "ofoCopilotProfile",
+    "ofoGoal",
+    "ofoCopilotHistory",
+    "ofoCopilotSession",
+    "ofoCopilotProviderKeys"
+  ]);
   state.profile = {
     goal: "",
     skillLevel: "unknown",
@@ -301,7 +382,14 @@ document.querySelector("#delete-memory").addEventListener("click", async () => {
   };
   apiEndpointEl.value = state.session.endpoint;
   accessTokenEl.value = "";
+  state.providerKeys = {
+    openaiPresent: false,
+    anthropicPresent: false
+  };
+  openaiApiKeyEl.value = "";
+  anthropicApiKeyEl.value = "";
   renderAccountStatus();
+  renderProviderStatus();
   renderMemorySummary([]);
   promptEl.textContent = "Local OFO Copilot memory deleted.";
 });

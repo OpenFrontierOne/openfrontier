@@ -36,14 +36,32 @@
         <input id="api-endpoint" type="url" value="https://openfrontier.one/api/copilot">
       </label>
       <label>
-        Access token placeholder
-        <input id="access-token" type="password" placeholder="Paste future OFO token">
+        OFO access token
+        <input id="access-token" type="password" placeholder="Paste future OFO account token">
       </label>
       <div class="split-actions">
-        <button id="save-session" class="secondary">Save session</button>
-        <button id="clear-session" class="secondary">Clear session</button>
+        <button id="save-session" class="secondary">Sign in locally</button>
+        <button id="clear-session" class="secondary">Sign out</button>
       </div>
-      <p class="privacy-note">Prototype only: no account requests are sent yet. The payload preview shows what would be synced after explicit sign-in.</p>
+      <p class="privacy-note">Prototype only: OFO sign-in is stored locally and no account requests are sent yet. The sync preview shows what would be synced after explicit sign-in.</p>
+    </section>
+
+    <section class="card">
+      <h2>AI provider keys</h2>
+      <p id="provider-status" class="muted">No local AI provider keys saved.</p>
+      <label>
+        OpenAI API key
+        <input id="openai-api-key" type="password" placeholder="sk-...">
+      </label>
+      <label>
+        Claude API key
+        <input id="anthropic-api-key" type="password" placeholder="sk-ant-...">
+      </label>
+      <div class="split-actions">
+        <button id="save-provider-keys" class="secondary">Save keys locally</button>
+        <button id="clear-provider-keys" class="secondary">Clear keys</button>
+      </div>
+      <p class="privacy-note">Provider keys stay in this browser profile via <code>chrome.storage.local</code>. They are separate from OFO sign-in and are not included in sync payloads.</p>
     </section>
 
     <section class="card">

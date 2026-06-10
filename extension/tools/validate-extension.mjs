@@ -66,6 +66,12 @@ for (const requiredId of ["account-status", "api-endpoint", "access-token", "sav
   }
 }
 
+for (const requiredId of ["provider-status", "openai-api-key", "anthropic-api-key", "save-provider-keys", "clear-provider-keys"]) {
+  if (!sidepanel.includes(`id="${requiredId}"`)) {
+    errors.push(`Side panel is missing #${requiredId}.`);
+  }
+}
+
 for (const requiredScript of ["copilot-core.js", "sidepanel.js"]) {
   if (!sidepanel.includes(`src="${requiredScript}"`)) {
     errors.push(`Side panel is missing ${requiredScript}.`);
@@ -88,6 +94,10 @@ for (const requiredCopy of ["should not monitor the wider browser", "OFO-owned d
   if (!readme.includes(requiredCopy)) {
     errors.push(`README is missing privacy boundary copy: ${requiredCopy}`);
   }
+}
+
+if (!sidepanel.includes("chrome.storage.local") || !sidepanel.includes("not included in sync payloads")) {
+  errors.push("Side panel must state that provider keys are local and not included in sync payloads.");
 }
 
 if (errors.length) {
